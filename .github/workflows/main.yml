@@ -12,5 +12,24 @@ jobs:
       - run: npm i && npm run build
       - uses: actions/upload-artifact@v4.3.3
         with:
-          name: build
-          path: dist
+          name: build-artifact
+          path: |
+            dist
+            Dockerfile
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4.1.7
+        with:
+          path: build-artifact
+      - run: ls
+      - run: |
+          mkdir ~/.ssh
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOST }} > ~/.ssh/known_hosts
+      - run: scp -r -i ~/.ssh/id_rsa build-artifact/build-artifact/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:"/home/${{ secrets.USERNAME }}"
+      - run: ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "docker build -t calendar . && docker ps -f name=calendar -q | xargs --no-run-if-empty docker rm --force && docker run --detach -p 5173:5173 --name calendar calendar"
+      - run: rm -rf ~/.ssh
+      
