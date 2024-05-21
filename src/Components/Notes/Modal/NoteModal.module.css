@@ -1,0 +1,100 @@
+dialog{
+    border: 1px solid ;
+    border-radius: 15px;
+}
+
+.favDialogClass div {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+dialog div:first-child {
+    display: flex;
+    justify-content: end;
+}
+
+.favDialogClass input{
+    width: 100%;
+    color: rgb(36, 35, 42);
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 28px;
+    border-radius: 4px;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+    background: rgb(251, 251, 251);
+    transition: all 0.1s ease 0s;
+    :focus{
+        border: 2px solid rgb(124, 138, 255);
+    }
+}
+
+.favDialogClass select{
+    color: rgb(36, 35, 42);
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 28px;
+    border-radius: 4px;
+    border: 5px solid transparent;
+    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+    background: rgb(251, 251, 251);
+}
+
+.favDialogClass svg{
+    font-size: 35px;
+}
+
+.favDialogClass textarea{
+    color: rgb(36, 35, 42);
+    width: 100%;
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 28px;
+    border-radius: 4px;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+    background: rgb(251, 251, 251);
+    transition: all 0.1s ease 0s;
+    resize: none;
+}
+.favDialogClass textarea:focus{
+    border: 2px solid rgb(124, 138, 255);
+}
+
+.favDialog button{
+  appearance: none;
+  background-color: lightgreen;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.favDialog .backButton{
+    background-color: lightcoral;
+}
+
+.favDialog button:hover {
+  text-decoration: none;
+  transition-duration: 0.1s;
+}

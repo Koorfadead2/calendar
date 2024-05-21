@@ -1,0 +1,52 @@
+
+.cardWrapper{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(255,255,255,0.93);
+}
+
+.cardWrapperContent{
+    display: grid;
+    grid-template: 1fr / repeat(7, 1fr);
+    padding: 10px;
+}
+
+.card{    
+    height: 5rem;
+    padding: 2rem;
+    margin: 0.1rem;
+    background-color: white;
+}
+
+.cardWrapper .cardDayItem{
+     padding-left: 4em;
+}
+
+.cardActive{
+    outline: 4px solid red;
+}
+
+.card:hover{
+    cursor: pointer;
+    background-color: rgba(155,150,255);
+}
+
+.cardWrapper .day{
+    font-weight: bold;
+    font-size: 18px;
+    color:black;
+    text-align: center;
+}
+
+.cardNameTag{
+    display: flex;
+    position:absolute;
+    background-color: green;
+}
+
+.daysOfNotCurrentMonth{
+    height: 5rem;
+    padding: 2rem;
+    margin: 0.1rem;
+    background-color: lightgray;
+}
