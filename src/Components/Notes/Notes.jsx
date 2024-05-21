@@ -28,7 +28,7 @@ const Notes = () => {
                         <div>
                             Важность заметки
                         </div>
-                        <select defaultValue={2}>
+                        <select defaultValue={'2'}>
                             <option value='0'>Очень важная</option>
                             <option value='1'>Важная</option>
                             <option value='2'>Обычная</option>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
