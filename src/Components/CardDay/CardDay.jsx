@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
+import NoteModal from '../Notes/Modal/NoteModal';
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
     const prevDays = [];
@@ -42,7 +43,7 @@ const getDaysInMonth = (month = new Date().getMonth(), year = new Date().getFull
 }
 const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
-const CardDay = () => {
+const CardDay = ({noteData, setNoteData}) => {
     const [daysInMonth, setDays] = useState(getDaysInMonth());
     const [currentMonth, setMonth] = useState(new Date().getMonth());
     const [currentYear, setYear] = useState(new Date().getFullYear());
@@ -62,12 +63,25 @@ const CardDay = () => {
         }
         setMonth(currentMonth => currentMonth - 1);
     }
+    // const [isOpen, setIsOpen] = useState(false);
+    // const toggleModal = ((id) => {
+    //     setIsOpen(!isOpen);
+    // });
+    // const addNote = (note) =>{
+    //     setNoteData([...noteData, note]);
+    // }
     useMemo(() => {
         setDays(getDaysInMonth(currentMonth, currentYear));
     }, [currentMonth])
+
+    const id = daysInMonth.map(day => day.getDate().toString() + (currentMonth+1).toString() + currentYear.toString());
     const prevCardElements = prevDays.map(day=><div className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const nextCardElements = nextDays.map(day=><div className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
-    const cardDayElements = daysInMonth.map(currentDay => <CardDayItem key={currentDay} day={currentDay.getDate()} currentMonth={currentMonth} currentYear={currentYear} />)
+    const cardDayElements = daysInMonth.map(currentDay => 
+    <CardDayItem noteData={[...noteData]} id={currentDay.getDate().toString() + (currentMonth+1).toString() + currentYear.toString()}
+                 setNoteData={setNoteData} day={currentDay.getDate()} 
+                 currentMonth={currentMonth} currentYear={currentYear}
+                  />)
     return (
         <div className={s.cardWrapper}>
             <MonthNavigation currentMonth={currentMonth} currentYear={currentYear} onNextMonth={onNextMonth} onPreviousMonth={onPreviousMonth} />
@@ -76,6 +90,7 @@ const CardDay = () => {
                     { prevCardElements }
                     { cardDayElements }
                     { nextCardElements } 
+                    {/* <NoteModal id={id} setNoteData={addNote} isOpen={isOpen} toggleModal={toggleModal}/> */}
             </div>
         </div>
     );

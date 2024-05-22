@@ -1,3 +1,16 @@
 .appWrapper{
-  padding: 1rem;
+  display: grid;
+  margin: 0 auto;
+  grid-template-areas: 
+  "h h h"
+  "cont cont cont"
+  "cont cont cont";
+
+  grid-template-rows: 6rem auto;
+  grid-template-columns: 1fr;
+}
+
+.appWrapperContent{
+  grid-area:cont;
+  padding: 1rem;;
 }
