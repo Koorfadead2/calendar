@@ -1,4 +1,3 @@
-
 .cardWrapper{
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -16,6 +15,7 @@
     padding: 2rem;
     margin: 0.1rem;
     background-color: white;
+    transition: 0.4s;
 }
 
 .cardWrapper .cardDayItem{
@@ -29,6 +29,7 @@
 .card:hover{
     cursor: pointer;
     background-color: rgba(155,150,255);
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
 }
 
 .cardWrapper .day{
@@ -39,11 +40,11 @@
 }
 
 .cardNameTag{
-    display: flex;
-    position:relative;
-    background-color: green;
-    width:50%;
+    position: relative;
+    margin-bottom: 0;
+    margin-left: 6.8em;
 }
+
 
 .daysOfNotCurrentMonth{
     height: 5rem;
@@ -53,7 +54,8 @@
 }
 
 .cardItem{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .noteInfo{

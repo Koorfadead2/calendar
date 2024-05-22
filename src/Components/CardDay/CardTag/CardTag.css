@@ -1,0 +1,35 @@
+.important::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1em;
+    width: 5px;
+    height: 0;
+    border-radius: 10px 0px 0px 0px;
+    border-color: rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2);
+    border-style: solid;
+    border-width: 20px 20px 20px 0px;
+}
+
+.decent::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-color: transparent rgb(62, 236, 62) transparent transparent;
+    border-style: solid;
+    border-width: 40px 40px 0px 0;
+}
+
+.low::before{
+    content: "";
+    position: absolute;
+    top: 0.5em;
+    left:0.5em;
+    height: 0;
+    border-radius: 30px;
+    border-color: dodgerblue dodgerblue dodgerblue dodgerblue;
+    border-style: solid;
+    border-width: 10px 20px 20px 10px;
+}
