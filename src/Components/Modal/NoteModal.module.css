@@ -1,13 +1,10 @@
 .favDialog::backdrop{
-
     background:rgba(0,0,0,0.3);
 }
 
 dialog{
-    z-index: 2;
     border: 1px solid ;
     border-radius: 15px;
-    position: fixed;
 }
 
 .favDialogClass div {

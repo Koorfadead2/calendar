@@ -1,14 +1,14 @@
-import { useId, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
-import NoteModal from '../Notes/Modal/NoteModal';
+import NoteModal from '../Modal/NoteModal';
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
     const prevDays = [];
     const dayOfWeekCurrentMonth = new Date(year, month, 1);
     if (dayOfWeekCurrentMonth.getDay() !== 1) {
-        const numberForPreviousDays = 7 - (Math.abs(dayOfWeekCurrentMonth.getDay() - 7) + 1);
+        const numberForPreviousDays = dayOfWeekCurrentMonth.getDay() === 0 ? 7 - (Math.abs((dayOfWeekCurrentMonth.getDay() + 8) - 7)) : 7 - (Math.abs(dayOfWeekCurrentMonth.getDay() - 7) + 1);
         for (let i = 0; i < numberForPreviousDays; i++) {
             prevDays.push(new Date(prevDate));
             prevDate.setDate(prevDate.getDate() - 1);
@@ -47,6 +47,9 @@ const CardDay = ({noteData, setNoteData}) => {
     const [daysInMonth, setDays] = useState(getDaysInMonth());
     const [currentMonth, setMonth] = useState(new Date().getMonth());
     const [currentYear, setYear] = useState(new Date().getFullYear());
+    const [id, setId] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const dialog = useRef();
     const nextDays = getNextDays(currentMonth, currentYear);
     const prevDays = getPrevDays(currentMonth, currentYear);
     const onNextMonth = () => {
@@ -63,34 +66,37 @@ const CardDay = ({noteData, setNoteData}) => {
         }
         setMonth(currentMonth => currentMonth - 1);
     }
-    // const [isOpen, setIsOpen] = useState(false);
-    // const toggleModal = ((id) => {
-    //     setIsOpen(!isOpen);
-    // });
-    // const addNote = (note) =>{
-    //     setNoteData([...noteData, note]);
-    // }
+    const toggleModal = ((id) => {
+        setId(id);
+        if(!isOpen)
+            dialog.current.showModal();
+        else
+            dialog.current.close();
+        setIsOpen(!isOpen);
+    });
+    const addNote = (note) =>{
+        setNoteData([...noteData, note]);
+    }
     useMemo(() => {
         setDays(getDaysInMonth(currentMonth, currentYear));
     }, [currentMonth])
 
-    const id = daysInMonth.map(day => day.getDate().toString() + (currentMonth+1).toString() + currentYear.toString());
-    const prevCardElements = prevDays.map(day=><div className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
-    const nextCardElements = nextDays.map(day=><div className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
+    const prevCardElements = prevDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
+    const nextCardElements = nextDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const cardDayElements = daysInMonth.map(currentDay => 
-    <CardDayItem noteData={[...noteData]} id={currentDay.getDate().toString() + (currentMonth+1).toString() + currentYear.toString()}
-                 setNoteData={setNoteData} day={currentDay.getDate()} 
+    <CardDayItem key={crypto.randomUUID()} noteData={[...noteData]} id={currentDay.getDate().toString() + currentMonth.toString() + currentYear.toString()}
+                 setNoteData={setNoteData} day={currentDay.getDate()} toggleModal={toggleModal}
                  currentMonth={currentMonth} currentYear={currentYear}
                   />)
     return (
         <div className={s.cardWrapper}>
             <MonthNavigation currentMonth={currentMonth} currentYear={currentYear} onNextMonth={onNextMonth} onPreviousMonth={onPreviousMonth} />
             <div className={s.cardWrapperContent}>
-                    { dayOfWeek.map(day => <div className={s.day}>{ day }</div>) }
+                    { dayOfWeek.map(day => <div key={day} className={s.day}>{ day }</div>) }
                     { prevCardElements }
                     { cardDayElements }
                     { nextCardElements } 
-                    {/* <NoteModal id={id} setNoteData={addNote} isOpen={isOpen} toggleModal={toggleModal}/> */}
+                    <NoteModal dialog={dialog} id={id} setNoteData={addNote} isOpen={isOpen} toggleModal={toggleModal}/>
             </div>
         </div>
     );

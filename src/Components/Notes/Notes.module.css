@@ -7,65 +7,9 @@
     margin: 10px;
 }
 
-.favDialogClass div {
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-}
-
-.favDialogClass input{
-    width: 100%;
-    color: rgb(36, 35, 42);
-    font-size: 16px;
-    line-height: 20px;
-    min-height: 28px;
-    border-radius: 4px;
-    padding: 8px 16px;
-    border: 2px solid transparent;
-    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
-    background: rgb(251, 251, 251);
-    transition: all 0.1s ease 0s;
-    :focus{
-        border: 2px solid rgb(124, 138, 255);
-    }
-}
-
-.favDialogClass select{
-    color: rgb(36, 35, 42);
-    font-size: 16px;
-    line-height: 20px;
-    min-height: 28px;
-    border-radius: 4px;
-    border: 5px solid transparent;
-    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
-    background: rgb(251, 251, 251);
-}
-
-.favDialogClass svg{
-    font-size: 35px;
-}
-
-.favDialogClass textarea{
-    color: rgb(36, 35, 42);
-    width: 100%;
-    font-size: 16px;
-    line-height: 20px;
-    min-height: 28px;
-    border-radius: 4px;
-    padding: 8px 16px;
-    border: 2px solid transparent;
-    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
-    background: rgb(251, 251, 251);
-    transition: all 0.1s ease 0s;
-    resize: none;
-}
-.favDialogClass textarea:focus{
-    border: 2px solid rgb(124, 138, 255);
-}
-
-.favDialog button{
+.notesWrapper button{
   appearance: none;
-  background-color: lightgreen;
+  background-color: rgb(197, 167, 255);
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -89,11 +33,7 @@
   word-wrap: break-word;
 }
 
-.favDialog .backButton{
-    background-color: lightcoral;
-}
-
-.favDialog button:hover {
+.notesWrapper button:hover {
   text-decoration: none;
   transition-duration: 0.1s;
 }

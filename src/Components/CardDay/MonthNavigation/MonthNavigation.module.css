@@ -10,12 +10,22 @@ svg{
 }
 
 .navigatorWrapper{
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
     margin-bottom: 0.5em;
 }
 
 .prevAndNextButtons{
     margin-left: 1em;
     margin-right: 1em;
+}
+
+.monthNavigation{
+    display: flex;
+    justify-content: center;
+}
+
+.filterByColorTag span{
+    margin-left:1em;
+    margin-right:1em;
 }

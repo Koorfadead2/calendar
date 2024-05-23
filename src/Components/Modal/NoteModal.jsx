@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import s from "./NoteModal.module.css"
 
-const NoteModal = ({ setNoteData, isOpen, toggleModal, id }) => {
+const NoteModal = ({ setNoteData, isOpen, toggleModal, id, dialog }) => {
     const { register, handleSubmit, reset } = useForm();
+
     const onSubmit = (e) => {
         const merged = { id , ...e };
         console.log(merged);
@@ -17,7 +18,7 @@ const NoteModal = ({ setNoteData, isOpen, toggleModal, id }) => {
     console.log(id);
     return (
         <>
-            <dialog className={s.favDialog} open={isOpen}>
+            <dialog ref={dialog} className={s.favDialog}>
                 <div><button onClick={ closeAddNoteModal } className={s.backButton}>Назад</button></div>
                 <hr />
                 <div className={s.favDialogClass}>
@@ -25,14 +26,14 @@ const NoteModal = ({ setNoteData, isOpen, toggleModal, id }) => {
                         <div><input {...register("title")} type="text" placeholder="Заголовок" /></div>
                         <div><textarea {...register("description")} placeholder="Описание заметки" /></div>
                         <div><b>Начало</b></div>
-                        <div><input {...register("startTime")} type="time" /></div>
+                        <div><input {...register("startTime")} type="time" aria-label="startTimeLabel"/></div>
                         <div><b>Конец</b></div>
-                        <div><input {...register("endTime")} type="time" /></div>
+                        <div><input {...register("endTime")} type="time" aria-label="endTimeLabel"/></div>
                         <div>
                             <div>
                                 <b>Важность заметки</b>
                             </div>
-                            <select {...register("importance")} defaultValue={'1'}>
+                            <select {...register("importance")} defaultValue={'1'} aria-label="ImportanceSelector">
                                 <option value='0'>Важная</option>
                                 <option value='1'>Обычная</option>
                                 <option value='2'>Низкая</option>

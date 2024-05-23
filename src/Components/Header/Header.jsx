@@ -3,9 +3,9 @@ import s from "./Header.module.css"
 function Header(){
     return(
         <div className={s.headerWrapper}>
-            <img src="./../../assets/logo.jpg"/>
+            <img src="./../../assets/logo.jpg" alt="logo"/>
             <div className={s.header}>
-                <button type="button">Login</button>
+                <button title="login" type="button">Login</button>
             </div>
         </div>
     )

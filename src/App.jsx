@@ -7,14 +7,7 @@ import Header from './Components/Header/Header';
 const Notes = React.lazy(() => import("./Components/Notes/Notes"));
 
 function App() {
-  const [noteData, setNoteData] = useState([{
-    id: null,
-    title: null,
-    description: null,
-    startTime: null,
-    endTime: null,
-    importance: null
-  }]);
+  const [noteData, setNoteData] = useState([],[]);
   return (
     <div className='appWrapper'>
       <Suspense fallback={<div>Loading...</div>}>
