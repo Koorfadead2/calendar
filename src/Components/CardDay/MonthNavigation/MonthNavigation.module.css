@@ -26,6 +26,35 @@ svg{
 }
 
 .filterByColorTag span{
-    margin-left:1em;
-    margin-right:1em;
+    display: inline-flex;
+    cursor: pointer;
+    margin-left:0.5em;
+    margin-right:0.5em;
+
+    content: "";
+    right:0;
+    width:0;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 5px 20px 20px 5px;
+}
+
+.isActiveRed{
+    border-color: rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2);
+    background-color: rgb(202, 2, 2);
+}
+
+.isActiveGreen{
+    border-color: rgb(62, 236, 62) rgb(62, 236, 62) rgb(62, 236, 62) rgb(62, 236, 62);
+    background-color: rgb(62, 236, 62);
+}
+
+.isActiveBlue{
+    border-color: dodgerblue dodgerblue dodgerblue dodgerblue;
+    background-color: dodgerblue;
+}
+
+.isInActive{
+    border-color: #8b8b8b #8b8b8b #8b8b8b #8b8b8b;
+    background-color: #8b8b8b;
 }

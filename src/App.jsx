@@ -15,7 +15,7 @@ function App() {
         <div className='appWrapperContent'>
           <Routes>
             <Route path='/' element={<CardDay noteData={noteData} setNoteData={setNoteData}/>} />
-            <Route path='/note/:id' element={<Notes noteData={noteData}/>} />
+            <Route path='/note/:id' element={<Notes noteData={noteData} setNoteData={setNoteData}/>} />
           </Routes>
         </div>
       </Suspense>
