@@ -1,10 +1,14 @@
 import s from "./MonthNavigation.module.css"
 import ColorTagSpan from "./ColorTagSpan/ColorTagSpan"
+import { useDispatch } from "react-redux"
+import { onNextMonthAction, onPreviousMonthAction } from "../../../Redux/Slicers/currentDateSlice"
 
 const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
 
-const MonthNavigation = ({ onNextMonth, onPreviousMonth, currentMonth, currentYear }) => {
-
+const MonthNavigation = ({ onPreviousMonth, onNextMonth, currentMonth, currentYear }) => {
+    const dispatch = useDispatch();
+    // const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
+    // const onNextMonth = ()=>dispatch(onNextMonthAction());
     return (
         <div className={s.navigatorWrapper}>
             <div className={s.filterByColorTag}>

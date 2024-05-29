@@ -1,8 +1,11 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNoteAction } from '../../Redux/Slicers/notesSlice';
+import { getDaysInMonth, onNextMonthAction, onPreviousMonthAction } from '../../Redux/Slicers/currentDateSlice';
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
     const prevDays = [];
@@ -32,40 +35,27 @@ const getNextDays = (month, year) => {
     return nextDays;
 }
 
-const getDaysInMonth = (month = new Date().getMonth(), year = new Date().getFullYear()) => {
-    const date = new Date(year, month, 1);
-    const days = [];
-    while (date.getMonth() === month) {
-        days.push(new Date(date));
-        date.setDate(date.getDate() + 1);
-    }
-    return days;
-}
 const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
-const CardDay = ({noteData, setNoteData}) => {
-    const [daysInMonth, setDays] = useState(getDaysInMonth());
-    const [currentMonth, setMonth] = useState(new Date().getMonth());
-    const [currentYear, setYear] = useState(new Date().getFullYear());
+const CardDay = () => {
+    const dispatch = useDispatch();
+    const currentDate = useSelector(state=>state.currentDate);
+    //const [daysInMonth, setDays] = useState(getDaysInMonth());
+    // const [currentMonth, setMonth] = useState(new Date().getMonth());
+    // const [currentYear, setYear] = useState(new Date().getFullYear());
     const [id, setId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const dialog = useRef();
+    const currentMonth = currentDate.currentMonth;
+    const currentYear = currentDate.currentYear;
     const nextDays = getNextDays(currentMonth, currentYear);
     const prevDays = getPrevDays(currentMonth, currentYear);
-    const onNextMonth = () => {
-        if (currentMonth >= 11) {
-            setMonth(-1);
-            setYear(currentYear + 1);
-        }
-        setMonth(currentMonth => currentMonth + 1);
-    }
-    const onPreviousMonth = () => {
-        if (currentMonth <= 0) {
-            setMonth(12);
-            setYear(currentYear - 1);
-        }
-        setMonth(currentMonth => currentMonth - 1);
-    }
+    const setDays = (currentMonth, currentYear) => dispatch(getDaysInMonth(currentMonth, currentYear));
+    const daysInMonth = currentDate.daysInMonth;
+    //console.log(daysInMonth);
+    const addNote = (note) => dispatch(addNoteAction({note}));
+    const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
+    const onNextMonth = ()=>dispatch(onNextMonthAction());
     const toggleModal = ((id) => {
         setId(id);
         if(!isOpen)
@@ -74,29 +64,27 @@ const CardDay = ({noteData, setNoteData}) => {
             dialog.current.close();
         setIsOpen(!isOpen);
     });
-    const addNote = (note) =>{
-        setNoteData([...noteData, note]);
-    }
+
     useMemo(() => {
-        setDays(getDaysInMonth(currentMonth, currentYear));
+        setDays(currentMonth, currentYear);
     }, [currentMonth])
 
     const prevCardElements = prevDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const nextCardElements = nextDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const cardDayElements = daysInMonth.map(currentDay => 
-    <CardDayItem key={crypto.randomUUID()} noteData={[...noteData]} id={currentDay.getDate().toString() + currentMonth.toString() + currentYear.toString()}
-                 setNoteData={setNoteData} day={currentDay.getDate()} toggleModal={toggleModal}
+    <CardDayItem key={currentDay.toString() + currentMonth.toString() + currentYear.toString()} id={currentDay.toString() + currentMonth.toString() + currentYear.toString()}
+                 day={currentDay} toggleModal={toggleModal}
                  currentMonth={currentMonth} currentYear={currentYear}
                   />)
     return (
         <div className={s.cardWrapper}>
-            <MonthNavigation currentMonth={currentMonth} currentYear={currentYear} onNextMonth={onNextMonth} onPreviousMonth={onPreviousMonth} />
+            <MonthNavigation onNextMonth={onNextMonth} onPreviousMonth={onPreviousMonth} currentMonth={currentMonth} currentYear={currentYear} />
             <div className={s.cardWrapperContent}>
                     { dayOfWeek.map(day => <div key={day} className={s.day}>{ day }</div>) }
                     { prevCardElements }
                     { cardDayElements }
                     { nextCardElements } 
-                    <NoteModal dialog={dialog} id={id} setNoteData={addNote} isOpen={isOpen} toggleModal={toggleModal}/>
+                    <NoteModal dialog={dialog} addNote={addNote} id={id} isOpen={isOpen} toggleModal={toggleModal}/>
             </div>
         </div>
     );

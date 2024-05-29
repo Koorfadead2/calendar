@@ -1,12 +1,14 @@
+import { useSelector } from "react-redux";
 import s from "./Notes.module.css";
 
-const NoteInfo = ({ noteData, id }) => {
-    console.log(noteData);
-    console.log(id);
+const NoteInfo = ({ id }) => {
+    const notesData = useSelector(state => state.notes.notesData);
+    // console.log(notesData);
+    // console.log(id);
     return (
         <>
             <div className={s.noteInfo}>
-                {noteData.map(note => note && note.id === id &&
+                {notesData.map(note => note && note.id === id &&
                     <div key={note.id}>
                         <b>{note.title}</b>
                         <div>{note.description}</div>

@@ -2,12 +2,11 @@ import { useForm } from "react-hook-form";
 import s from "./NoteModal.module.css"
 import { useState } from "react";
 
-const NoteModal = ({ setNoteData, toggleModal, id, dialog }) => {
+const NoteModal = ({ addNote, toggleModal, id, dialog }) => {
     const { register, handleSubmit, reset, formState:{errors} } = useForm();
-
     const onSubmit = (data) => {
-        const merged = { id , ...data };
-        setNoteData(merged);
+        const note = { ...data, id };
+        addNote(note);
         toggleModal();
         reset();
     }
@@ -25,20 +24,18 @@ const NoteModal = ({ setNoteData, toggleModal, id, dialog }) => {
             {
                 console.log("Начальное время не должно превышать конечное");
             }
-        
     }
     const onEndTimeChange = (e) =>{
         //e.preventDefault();
         console.log(startTime);
         console.log(endTime);
         setEndTime(e.target.value);
-        console.log(startTime<endTime);
+        console.log(endTime < startTime);
         //нужен парс часов и минут
-        if(startTime < endTime)
+        if(startTime > endTime)
             {
                 console.log("Начальное время не должно превышать конечное");
             }
-        
     }
     return (
         <>
