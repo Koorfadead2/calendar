@@ -5,10 +5,10 @@ import { onNextMonthAction, onPreviousMonthAction } from "../../../Redux/Slicers
 
 const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
 
-const MonthNavigation = ({ onPreviousMonth, onNextMonth, currentMonth, currentYear }) => {
+const MonthNavigation = ({ currentMonth, currentYear }) => {
     const dispatch = useDispatch();
-    // const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
-    // const onNextMonth = ()=>dispatch(onNextMonthAction());
+     const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
+     const onNextMonth = ()=>dispatch(onNextMonthAction());
     return (
         <div className={s.navigatorWrapper}>
             <div className={s.filterByColorTag}>

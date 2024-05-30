@@ -4,7 +4,7 @@ import CardTag from "./CardTag/CardTag";
 import { useSelector } from "react-redux";
 const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
 
-    const noteData = useSelector(state => state.notes.notesData);
+    const filteredNotesData = useSelector(state => state.notes.filteredNotesData);
 
     const isToday = () => {
         const today = new Date();
@@ -25,7 +25,7 @@ const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
                     <div className={isWeekend() ? s.weekend : ""}>
                         { day }
                     </div>
-                    {noteData.map(note=>note.id === id ? <div key={note.id} className={s.noteInfo}>
+                    {filteredNotesData.map(note=>note.id === id ? <div key={note.id} className={s.noteInfo}>
                         <b>{note.title}</b>
                         <div>{note.description.toString().length > 11 ? note.description.toString().substring(0,12) + "..." : note.description }</div>
                         <div>{note.startTime + "-" + note.endTime}</div>

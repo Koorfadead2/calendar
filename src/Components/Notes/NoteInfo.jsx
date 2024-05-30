@@ -3,8 +3,6 @@ import s from "./Notes.module.css";
 
 const NoteInfo = ({ id }) => {
     const notesData = useSelector(state => state.notes.notesData);
-    // console.log(notesData);
-    // console.log(id);
     return (
         <>
             <div className={s.noteInfo}>
@@ -16,6 +14,9 @@ const NoteInfo = ({ id }) => {
                         <div>{note.importance}</div>
                     </div>
                 )}
+            </div>
+            <div className={s.todoWrapper}>
+                TODO
             </div>
         </>
 

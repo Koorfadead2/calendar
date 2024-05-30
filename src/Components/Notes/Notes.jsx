@@ -15,7 +15,7 @@ const Notes = () => {
         <div className={s.notesWrapper}>
             <span className={s.backButton}><NavLink to="/"><button type="button">Обратно на календарь</button></NavLink></span>
             <span><button onClick={()=>dispatch(removeNoteAction({id}))} type="button">Удалить заметку</button></span>
-            <NoteInfo id={id}/>
+            <span><NoteInfo id={id}/></span>
         </div>
     )
 }

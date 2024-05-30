@@ -5,7 +5,8 @@ import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNoteAction } from '../../Redux/Slicers/notesSlice';
-import { getDaysInMonth, onNextMonthAction, onPreviousMonthAction } from '../../Redux/Slicers/currentDateSlice';
+import { getDaysInMonth } from '../../Redux/Slicers/currentDateSlice';
+
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
     const prevDays = [];
@@ -40,9 +41,6 @@ const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const CardDay = () => {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
-    //const [daysInMonth, setDays] = useState(getDaysInMonth());
-    // const [currentMonth, setMonth] = useState(new Date().getMonth());
-    // const [currentYear, setYear] = useState(new Date().getFullYear());
     const [id, setId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const dialog = useRef();
@@ -52,10 +50,7 @@ const CardDay = () => {
     const prevDays = getPrevDays(currentMonth, currentYear);
     const setDays = (currentMonth, currentYear) => dispatch(getDaysInMonth(currentMonth, currentYear));
     const daysInMonth = currentDate.daysInMonth;
-    //console.log(daysInMonth);
     const addNote = (note) => dispatch(addNoteAction({note}));
-    const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
-    const onNextMonth = ()=>dispatch(onNextMonthAction());
     const toggleModal = ((id) => {
         setId(id);
         if(!isOpen)
@@ -78,7 +73,7 @@ const CardDay = () => {
                   />)
     return (
         <div className={s.cardWrapper}>
-            <MonthNavigation onNextMonth={onNextMonth} onPreviousMonth={onPreviousMonth} currentMonth={currentMonth} currentYear={currentYear} />
+            <MonthNavigation currentMonth={currentMonth} currentYear={currentYear} />
             <div className={s.cardWrapperContent}>
                     { dayOfWeek.map(day => <div key={day} className={s.day}>{ day }</div>) }
                     { prevCardElements }

@@ -20,8 +20,8 @@ const currentDateSlice = createSlice({
             state.daysInMonth = days;
         },
         onNextMonthAction (state,action) {
-            if (state.currentMonth >= 11) {
-                state.currentMonth = -1 ;
+            if (state.currentMonth >= 10) {
+                state.currentMonth = 0 ;
                 state.currentYear += 1;
             }
             else
@@ -30,8 +30,8 @@ const currentDateSlice = createSlice({
         },
         onPreviousMonthAction (state,action) {
             if (state.currentMonth <= 0) {
-                state.currentMonth = 12;
                 state.currentYear -= 1;
+                state.currentMonth = 11;
             }
             else
                 state.currentMonth -= 1;

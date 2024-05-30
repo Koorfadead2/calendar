@@ -1,0 +1,19 @@
+.isActiveRed{
+    border-color: rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2);
+    background-color: rgb(202, 2, 2);
+}
+
+.isActiveGreen{
+    border-color: rgb(62, 236, 62) rgb(62, 236, 62) rgb(62, 236, 62) rgb(62, 236, 62);
+    background-color: rgb(62, 236, 62);
+}
+
+.isActiveBlue{
+    border-color: dodgerblue dodgerblue dodgerblue dodgerblue;
+    background-color: dodgerblue;
+}
+
+.isInActive{
+    border-color: #8b8b8b #8b8b8b #8b8b8b #8b8b8b;
+    background-color: #8b8b8b;
+}
