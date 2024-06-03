@@ -1,35 +1,40 @@
-.important::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 1em;
-    width: 5px;
-    height: 0;
-    border-radius: 10px 0px 0px 0px;
+.important{
+    position: relative;
+    left: calc(100% - 6.8em);
+    width: 1em;
+    border-radius: 1em 0 0 0;
     border-color: rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2) rgb(202, 2, 2);
     border-style: solid;
-    border-width: 20px 20px 20px 0px;
+    border-width: 1em 1em 1.6em 0;
 }
 
-.decent::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
+.decent{
+    position: relative;
+    left: calc(100% - 7.3em);
+    width: 0em;
     border-color: transparent rgb(62, 236, 62) transparent transparent;
     border-style: solid;
-    border-width: 40px 40px 0px 0;
+    border-width: 2.5em 2.5em 0em 0em;
 }
 
-.low::before{
-    content: "";
-    position: absolute;
-    top: 0.5em;
-    left:0.5em;
-    height: 0;
-    border-radius: 30px;
+.low{
+    position: relative;
+    left:calc(100% - 7.6em);
+    height: 0%;
+    border-radius: 50%;
     border-color: dodgerblue dodgerblue dodgerblue dodgerblue;
     border-style: solid;
-    border-width: 10px 20px 20px 10px;
+    border-width: 1.5em 2em 1em 0.6em;
+}
+
+.important:hover{
+    border-color: rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248);
+}
+
+.decent:hover{
+    border-color: transparent rgb(171, 210, 248) transparent transparent;
+}
+
+.low:hover{
+    border-color: rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248);
 }

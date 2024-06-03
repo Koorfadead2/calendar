@@ -22,8 +22,8 @@ function CardTag({importance, id}){
     return(
         <> 
             {tagImportance &&
-            <NavLink to={'/note/' + id}>
-                <div className={`${s.cardNameTag} ${tagImportance }`}/>
+            <NavLink to={'/note/' + id} className={`${s.cardNameTag} ${tagImportance }`}>
+                
             </NavLink> }
         </>
     )

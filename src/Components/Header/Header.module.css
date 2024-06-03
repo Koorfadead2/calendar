@@ -1,17 +1,16 @@
 .headerWrapper{
-    grid:h;
+    display: flex;
     background-color:rgb(78, 55, 221);
     color:white;
 }
 
 .headerWrapper img{
-    position: absolute;
-    width:160px;
+    position: relative;
+    width:10.5em;
     height:auto;
 }
 
 .header{
-    display: flex;
     justify-content: end;
     margin: 2rem;
 }

@@ -7,34 +7,12 @@
 .cardWrapperContent{
     display: grid;
     grid-template: 1fr / repeat(7, 1fr);
-    padding: 10px;
-}
-
-.card{    
-    height: 5rem;
-    padding: 2rem;
-    margin: 0.1rem;
-    background-color: white;
-    transition: 0.4s;
-}
-
-.cardWrapper .cardDayItem{
-     padding-left: 4em;
-}
-
-.cardActive{
-    outline: 4px solid red;
-}
-
-.card:hover{
-    cursor: pointer;
-    background-color: rgba(155,150,255);
-    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+    padding: 1em;
 }
 
 .cardWrapper .day{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1em;
     color:black;
     text-align: center;
 }
@@ -43,25 +21,12 @@
     position: relative;
     margin-bottom: 0;
     margin-left: 6.8em;
+    transition: all 0.3s ease-in-out;
 }
-
 
 .daysOfNotCurrentMonth{
     height: 5rem;
     padding: 2rem;
     margin: 0.1rem;
     background-color: lightgray;
-}
-
-.cardItem{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.noteInfo{
-    margin-left: 1rem;
-}
-
-.weekend{
-    color:red;
 }

@@ -1,10 +1,10 @@
 import { useMemo, useRef, useState } from 'react';
 import s from './CardDay.module.css'
-import CardDayItem from './CardDayItem';
+import CardDayItem from './CardDayItem/CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNoteAction } from '../../Redux/Slicers/notesSlice';
+import { addNoteAction, changeNoteAction } from '../../Redux/Slicers/notesSlice';
 import { getDaysInMonth } from '../../Redux/Slicers/currentDateSlice';
 
 const getPrevDays = (month, year) => {
@@ -41,6 +41,7 @@ const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const CardDay = () => {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
+    const notesData = useSelector(state => state.notes.notesData);
     const [id, setId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const dialog = useRef();
@@ -51,6 +52,7 @@ const CardDay = () => {
     const setDays = (currentMonth, currentYear) => dispatch(getDaysInMonth(currentMonth, currentYear));
     const daysInMonth = currentDate.daysInMonth;
     const addNote = (note) => dispatch(addNoteAction({note}));
+    const changeNote = (note) => dispatch(changeNoteAction({note}));
     const toggleModal = ((id) => {
         setId(id);
         if(!isOpen)
@@ -79,7 +81,7 @@ const CardDay = () => {
                     { prevCardElements }
                     { cardDayElements }
                     { nextCardElements } 
-                    <NoteModal dialog={dialog} addNote={addNote} id={id} isOpen={isOpen} toggleModal={toggleModal}/>
+                    <NoteModal dialog={dialog} addNote={addNote} changeNote={changeNote} notesData={notesData} id={id} isOpen={isOpen} toggleModal={toggleModal}/>
             </div>
         </div>
     );

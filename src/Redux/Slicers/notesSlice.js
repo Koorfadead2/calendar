@@ -10,16 +10,22 @@ const notesSlice = createSlice({
     reducers:{
         addNoteAction(state,action) {
             state.notesData.push(action.payload.note);
-            state.filteredNotesData = state.notesData;
+            state.filteredNotesData.push(action.payload.note);
+            state.filteredNotesData = state.notesData.filter(note => state.importanceColorId.includes(note.importance));
         },
         changeNoteAction(state,action){
-            //state.notesData;
+            console.log(action.payload);
+            state.notesData = action.payload;
         },
         removeNoteAction(state, action) {
-            state.notesData = state.notesData.filter(note => note.id !== action.payload.id);
-            window.location.href="/";
+            const confirmDelete = confirm("Вы уверены, что хотите удалить заметку?");
+            if(confirmDelete){
+                state.notesData = state.notesData.filter(note => note.id !== action.payload.id);
+                state.filteredNotesData = state.notesData;
+                window.location.href="/";
+            }
         },
-        filterNotesByTagColor(state,action){
+        filterNotesByTagColorAction(state,action){
             if(state.importanceColorId.find(number => number === action.payload.importance)){
                 const index = state.importanceColorId.indexOf(action.payload.importance);
                 state.importanceColorId.splice(index, 1);
@@ -33,6 +39,6 @@ const notesSlice = createSlice({
     },
 })
 
-export const {addNoteAction, removeNoteAction, changeNoteAction, filterNotesByTagColor} = notesSlice.actions;
+export const {addNoteAction, removeNoteAction, changeNoteAction, filterNotesByTagColorAction} = notesSlice.actions;
 
 export default notesSlice.reducer;

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import s from "./ColorTagSpan.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { filterNotesByTagColor } from "../../../../Redux/Slicers/notesSlice";
+import { filterNotesByTagColorAction } from "../../../../Redux/Slicers/notesSlice";
 
 function ColorTagSpan({ color }) {
     const [isActive, setActive] = useState(true);
     const dispatch = useDispatch();
-    const filterNotes = (importance) => dispatch(filterNotesByTagColor(importance));
+    const filterNotes = (importance) => dispatch(filterNotesByTagColorAction(importance));
     const toggleActive = () => {
         switch(color){
             case "Red":{filterNotes({importance:'0'}); break}

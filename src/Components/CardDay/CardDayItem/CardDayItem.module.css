@@ -1,0 +1,32 @@
+
+.cardItem{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardActive{
+    outline: 4px solid red;
+}
+
+.card:hover{
+    cursor: pointer;
+    background-color: rgba(155,150,255);
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+}
+
+.card{    
+    height: 5rem;
+    padding: 2rem;
+    margin: 0.1rem;
+    background-color: white;
+    transition: 0.4s;
+}
+
+
+.noteInfo{
+    margin-left: 1rem;
+}
+
+.weekend{
+    color:red;
+}
