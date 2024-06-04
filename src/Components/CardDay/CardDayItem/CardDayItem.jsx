@@ -20,18 +20,21 @@ const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
 
     return (
         <>
-            <div onClick={()=>toggleModal(id)} className={`${s.card} ${isToday() ? `${s.cardActive}` : ""}`}>
+            <div onClick={() => toggleModal(id)} className={`${s.card} ${isToday() ? `${s.cardActive}` : ""}`}>
                 <div className={s.cardItem}>
                     <div className={isWeekend() ? s.weekend : ""}>
-                        { day }
+                        {day}
                     </div>
-                    {filteredNotesData.map(note=>note.id === id ? <><div key={note.id} className={s.noteInfo}>
-                        <b>{note.title}</b>
-                        <div>{note.description.toString().length > 11 ? note.description.toString().substring(0,12) + "..." : note.description }</div>
-                        <div>{note.startTime + "-" + note.endTime}</div>
-                    </div> 
-                    <CardTag key={note.id} importance={note.importance} id={note.id}/></> 
-                    : <div key={note.id}></div>)}
+                    {filteredNotesData.map(note => note.id === id ?
+                        <React.Fragment key={note.id}>
+                            <div className={s.noteInfo}>
+                                <b>{note.title}</b>
+                                <div>{note.description.toString().length > 11 ? note.description.toString().substring(0, 12) + "..." : note.description}</div>
+                                <div>{note.startTime + "-" + note.endTime}</div>
+                            </div>
+                            <CardTag importance={note.importance} id={note.id} />
+                        </React.Fragment>
+                        : null)}
                 </div>
             </div>
         </>

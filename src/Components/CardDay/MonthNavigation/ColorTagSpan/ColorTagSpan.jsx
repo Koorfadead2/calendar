@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./ColorTagSpan.module.css"
-import { useDispatch, useSelector } from "react-redux";
-import { filterNotesByTagColorAction } from "../../../../Redux/Slicers/notesSlice";
+import { useDispatch } from "react-redux";
+import { filterNotesByTagColorAction } from "../../../../redux/Slicers/notesSlice";
 
 function ColorTagSpan({ color }) {
     const [isActive, setActive] = useState(true);

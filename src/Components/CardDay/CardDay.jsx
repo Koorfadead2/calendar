@@ -1,11 +1,11 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem/CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNoteAction, changeNoteAction } from '../../Redux/Slicers/notesSlice';
-import { getDaysInMonth } from '../../Redux/Slicers/currentDateSlice';
+import { addNoteAction, changeNoteAction } from '../../redux/Slicers/notesSlice';
+import { getDaysInMonth, setIdForModalAction } from '../../redux/Slicers/currentDateSlice';
 
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
@@ -42,34 +42,41 @@ const CardDay = () => {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
     const notesData = useSelector(state => state.notes.notesData);
-    const [id, setId] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const dialog = useRef();
+    
+    const isOpen = useRef(false);
+    const dialog = useRef(null);
+
     const currentMonth = currentDate.currentMonth;
     const currentYear = currentDate.currentYear;
+    const id = currentDate.dayId;
+
     const nextDays = getNextDays(currentMonth, currentYear);
     const prevDays = getPrevDays(currentMonth, currentYear);
+
     const setDays = (currentMonth, currentYear) => dispatch(getDaysInMonth(currentMonth, currentYear));
+    useEffect(() => {
+        setDays(currentMonth, currentYear);
+    }, [currentMonth, currentYear]);
+
     const daysInMonth = currentDate.daysInMonth;
+
     const addNote = (note) => dispatch(addNoteAction({note}));
     const changeNote = (note) => dispatch(changeNoteAction({note}));
+    const setIdForModal = (id) => dispatch(setIdForModalAction({id}));
+
     const toggleModal = ((id) => {
-        setId(id);
-        if(!isOpen)
+        if(!isOpen.current){
+            setIdForModal(id);
             dialog.current.showModal();
+        }
         else
             dialog.current.close();
-        setIsOpen(!isOpen);
+        isOpen.current = !isOpen.current;
     });
-
-    useMemo(() => {
-        setDays(currentMonth, currentYear);
-    }, [currentMonth])
-
     const prevCardElements = prevDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const nextCardElements = nextDays.map(day=><div key={crypto.randomUUID()} className={`${s.daysOfNotCurrentMonth}`}>{day.getDate()}</div> );
     const cardDayElements = daysInMonth.map(currentDay => 
-    <CardDayItem key={currentDay.toString() + currentMonth.toString() + currentYear.toString()} id={currentDay.toString() + currentMonth.toString() + currentYear.toString()}
+    <CardDayItem key={crypto.randomUUID()} id={currentDay.toString() + currentMonth.toString() + currentYear.toString()}
                  day={currentDay} toggleModal={toggleModal}
                  currentMonth={currentMonth} currentYear={currentYear}
                   />)

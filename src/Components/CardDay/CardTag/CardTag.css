@@ -22,19 +22,7 @@
     left:calc(100% - 7.6em);
     height: 0%;
     border-radius: 50%;
-    border-color: dodgerblue dodgerblue dodgerblue dodgerblue;
+    border-color: rgb(255, 145, 0) rgb(255, 145, 0) rgb(255, 145, 0) rgb(255, 145, 0);
     border-style: solid;
     border-width: 1.5em 2em 1em 0.6em;
-}
-
-.important:hover{
-    border-color: rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248);
-}
-
-.decent:hover{
-    border-color: transparent rgb(171, 210, 248) transparent transparent;
-}
-
-.low:hover{
-    border-color: rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248) rgb(171, 210, 248);
 }

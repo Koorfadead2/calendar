@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const currentDateSlice = createSlice({
     name: 'currentDate',
     initialState: {
+        dayId:null,
         daysInMonth:[],
         currentDay:null,
         currentMonth:new Date().getMonth(),
@@ -36,10 +37,13 @@ const currentDateSlice = createSlice({
             else
                 state.currentMonth -= 1;
             state.currentDateTimestamp = Date.now();
+        },
+        setIdForModalAction (state,action){
+            state.dayId = action.payload.id;
         }
     },
 })
 
-export const {getDaysInMonth,onNextMonthAction,onPreviousMonthAction} = currentDateSlice.actions;
+export const {getDaysInMonth,onNextMonthAction,onPreviousMonthAction, setIdForModalAction} = currentDateSlice.actions;
 
 export default currentDateSlice.reducer;
