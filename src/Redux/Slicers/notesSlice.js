@@ -8,13 +8,11 @@ const notesSlice = createSlice({
     },
     reducers:{
         addNoteAction(state,action) {
-            console.log(action.payload);
             state.notesData.push(action.payload.note);
             state.filteredNotesData.push(action.payload.note);
             state.filteredNotesData = state.notesData.filter(note => state.importanceColorId.includes(note.importance));
         },
         changeNoteAction(state,action){
-            console.log(action.payload);
             const updatedNotesData = state.notesData.map(note => {
                 if (note.id === action.payload.note.id) {
                   return action.payload.note;
@@ -23,6 +21,7 @@ const notesSlice = createSlice({
               });
             state.notesData = updatedNotesData;
             state.filteredNotesData = state.notesData;
+            state.filteredNotesData = state.notesData.filter(note => state.importanceColorId.includes(note.importance));s
         },
         removeNoteAction(state, action) {
             const confirmDelete = confirm("Вы уверены, что хотите удалить заметку?");

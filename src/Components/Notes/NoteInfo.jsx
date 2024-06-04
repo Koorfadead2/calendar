@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import s from "./Notes.module.css";
 
+const importanceName = {"0":"Важный","1":"Обычный","2":"Низкий"}
+
 const NoteInfo = ({ id }) => {
     const notesData = useSelector(state => state.notes.notesData);
     return (
@@ -11,7 +13,7 @@ const NoteInfo = ({ id }) => {
                         <b>{note.title}</b>
                         <div>{note.description}</div>
                         <div>{note.startTime + "-" + note.endTime}</div>
-                        <div>{note.importance}</div>
+                        <div>Приоритет задачи: {importanceName[note.importance]}</div>
                     </div>
                 )}
             </div>

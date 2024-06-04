@@ -28,7 +28,7 @@ const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
                     {filteredNotesData.map(note => note.id === id ?
                         <React.Fragment key={note.id}>
                             <div className={s.noteInfo}>
-                                <b>{note.title}</b>
+                                <b>{note.title.toString().length > 11 ? note.title.toString().substring(0, 12) + "..." : note.title}</b>
                                 <div>{note.description.toString().length > 11 ? note.description.toString().substring(0, 12) + "..." : note.description}</div>
                                 <div>{note.startTime + "-" + note.endTime}</div>
                             </div>
