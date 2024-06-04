@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import NoteInfo from "./NoteInfo";
 import s from "./Notes.module.css";
 import { NavLink } from "react-router-dom";
-import { removeNoteAction } from "../../redux/Slicers/notesSlice";
+import { removeNoteAction } from "../../Redux/Slicers/notesSlice";
 
 function getLastItem(path){
     return path.substring(path.lastIndexOf('/') + 1);

@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import s from './CardDay.module.css'
 import CardDayItem from './CardDayItem/CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNoteAction, changeNoteAction } from '../../redux/Slicers/notesSlice';
-import { getDaysInMonth, setIdForModalAction } from '../../redux/Slicers/currentDateSlice';
+import { addNoteAction, changeNoteAction } from '../../Redux/Slicers/notesSlice';
+import { getDaysInMonth, setIdForModalAction } from '../../Redux/Slicers/currentDateSlice';
 
 const getPrevDays = (month, year) => {
     const prevDate = new Date(year, month, 0);
@@ -42,7 +42,7 @@ const CardDay = () => {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
     const notesData = useSelector(state => state.notes.notesData);
-    
+
     const isOpen = useRef(false);
     const dialog = useRef(null);
 

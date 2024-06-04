@@ -1,7 +1,7 @@
 import s from "./MonthNavigation.module.css"
 import ColorTagSpan from "./ColorTagSpan/ColorTagSpan"
 import { useDispatch } from "react-redux"
-import { onNextMonthAction, onPreviousMonthAction } from "../../../redux/Slicers/currentDateSlice"
+import { onNextMonthAction, onPreviousMonthAction } from "../../../Redux/Slicers/currentDateSlice"
 
 const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
 
