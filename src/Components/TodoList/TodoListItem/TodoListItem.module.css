@@ -1,0 +1,35 @@
+.todoItem{
+    margin-right: 2em;
+    margin-bottom: 1em;
+    margin-top: 2em;
+}
+
+.todoItem ul{
+    list-style: none;
+    border: 2px solid #9147ff;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.todoItem li{
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
+.todoItem input[type="text"]{
+    border-radius: 6px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    border: 2px solid #dee1e2;
+    color: rgb(14, 14, 16);
+    background: #dee1e2;
+    outline: none;
+}
+.todoItem input[type="text"]:hover{
+    border-color: #ccc;
+}
+.todoItem input[type="text"]:focus{
+    border-color: #9147ff;
+    background: #fff;
+}

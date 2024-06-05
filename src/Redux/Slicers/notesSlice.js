@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const notesSlice = createSlice({
     name: 'notes',
     initialState: {
-        notesData:[],
-        filteredNotesData:[],
+        notesData:[{title:"sad",description:"as",startTime:"09:00",endTime:"10:00",importance:"1",id:"552024"}],
+        filteredNotesData:[{title:"sad",description:"as",startTime:"09:00",endTime:"10:00",importance:"1",id:"552024"}],
         importanceColorId:["0","1","2"]
     },
     reducers:{
@@ -21,7 +21,7 @@ const notesSlice = createSlice({
               });
             state.notesData = updatedNotesData;
             state.filteredNotesData = state.notesData;
-            state.filteredNotesData = state.notesData.filter(note => state.importanceColorId.includes(note.importance));s
+            state.filteredNotesData = state.notesData.filter(note => state.importanceColorId.includes(note.importance));
         },
         removeNoteAction(state, action) {
             const confirmDelete = confirm("Вы уверены, что хотите удалить заметку?");
@@ -44,6 +44,8 @@ const notesSlice = createSlice({
         },
     },
 })
+
+export const selectAllNotes = (state) => state.notes.notesData;
 
 export const {addNoteAction, removeNoteAction, changeNoteAction, filterNotesByTagColorAction} = notesSlice.actions;
 

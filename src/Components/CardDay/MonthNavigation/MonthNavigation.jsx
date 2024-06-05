@@ -14,7 +14,7 @@ const MonthNavigation = ({ currentMonth, currentYear }) => {
             <div className={s.filterByColorTag}>
                 <ColorTagSpan color="Red"/>
                 <ColorTagSpan color="Green"/>
-                <ColorTagSpan color="Blue"/>
+                <ColorTagSpan color="Orange"/>
             </div>
             <div className={s.monthNavigation}>
                 <div className={s.prevAndNextButtons}>

@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import s from "./Notes.module.css";
+import { selectAllNotes } from "../../Redux/Slicers/notesSlice";
 
 const importanceName = {"0":"Важный","1":"Обычный","2":"Низкий"}
 
 const NoteInfo = ({ id }) => {
-    const notesData = useSelector(state => state.notes.notesData);
+    const notesData = useSelector(selectAllNotes);
     return (
         <>
             <div className={s.noteInfo}>
@@ -17,9 +18,7 @@ const NoteInfo = ({ id }) => {
                     </div>
                 )}
             </div>
-            <div className={s.todoWrapper}>
-                TODO
-            </div>
+
         </>
 
     )

@@ -4,7 +4,7 @@ import CardDayItem from './CardDayItem/CardDayItem';
 import MonthNavigation from './MonthNavigation/MonthNavigation';
 import NoteModal from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNoteAction, changeNoteAction } from '../../Redux/Slicers/notesSlice';
+import { addNoteAction, changeNoteAction, selectAllNotes } from '../../Redux/Slicers/notesSlice';
 import { getDaysInMonth, setIdForModalAction } from '../../Redux/Slicers/currentDateSlice';
 
 const getPrevDays = (month, year) => {
@@ -41,7 +41,7 @@ const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const CardDay = () => {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
-    const notesData = useSelector(state => state.notes.notesData);
+    const notesData = useSelector(selectAllNotes);
 
     const isOpen = useRef(false);
     const dialog = useRef(null);

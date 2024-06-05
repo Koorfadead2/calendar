@@ -8,7 +8,6 @@ const currentDateSlice = createSlice({
         currentDay:null,
         currentMonth:new Date().getMonth(),
         currentYear:new Date().getFullYear(),
-        currentDateTimestamp: Date.now()
     },
     reducers:{
         getDaysInMonth (state,action) {
@@ -27,7 +26,6 @@ const currentDateSlice = createSlice({
             }
             else
                 state.currentMonth += 1;
-            state.currentDateTimestamp = Date.now();
         },
         onPreviousMonthAction (state,action) {
             if (state.currentMonth <= 0) {
@@ -36,7 +34,6 @@ const currentDateSlice = createSlice({
             }
             else
                 state.currentMonth -= 1;
-            state.currentDateTimestamp = Date.now();
         },
         setIdForModalAction (state,action){
             state.dayId = action.payload.id;

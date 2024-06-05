@@ -11,7 +11,7 @@ function ColorTagSpan({ color }) {
         switch(color){
             case "Red":{filterNotes({importance:'0'}); break}
             case "Green":{filterNotes({importance:'1'}); break}
-            case "Blue":{filterNotes({importance:'2'}); break}
+            case "Orange":{filterNotes({importance:'2'}); break}
         }
         setActive(prevActive => !prevActive);
     }

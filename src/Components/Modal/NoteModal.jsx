@@ -10,10 +10,10 @@ const NoteModal = ({ addNote, changeNote, toggleModal, notesData, id, dialog }) 
     useEffect(()=>{
         setNoteData(notesData.find(note => note.id === id));
     },[toggleModal])
-    
+
     const onSubmit = (data) => {
         const note = { ...data, id };
-        if(noteData.id !== id)
+        if(noteData?.id !== id)
             addNote(note);
         else
             changeNote(note);
@@ -28,7 +28,8 @@ const NoteModal = ({ addNote, changeNote, toggleModal, notesData, id, dialog }) 
         setNoteData({...noteData, importance:e.target.value});
     }
     const title="Важная - обозначена красным (Когда хотите не забыть о своей задаче и получать оповещения) \nОбычная - обозначена зелёным (Стандартная задача) \nНизкая - обозначена оранжевым"
-
+    const [startTime,setStartTime] = useState("09:00");
+    const [endTime,setEndTime] = useState("10:00");
     return (
         <>
             <dialog ref={dialog} className={s.favDialog} >
@@ -43,10 +44,10 @@ const NoteModal = ({ addNote, changeNote, toggleModal, notesData, id, dialog }) 
                         <div>{errors?.description && <p>{errors?.description?.message}</p>}</div>
 
                         <div><b>Начало</b></div>
-                        <div><input onInput={(e)=>setNoteData({...noteData, startTime:e.target.value})} value={noteData?.startTime} {...register("startTime", {validate: (value) => value && !(value > noteData?.endTime) || "Начальное время не должно превышать конечное"})} type="time" aria-label="startTimeLabel"/></div>
+                        <div><input onInput={(e)=>setStartTime(e.target.value)} value={startTime} {...register("startTime", {validate: (value) => value && !(value > endTime) || "Начальное время не должно превышать конечное"})} type="time" aria-label="startTimeLabel"/></div>
                         
                         <div><b>Конец</b></div>
-                        <div><input onInput={(e)=>setNoteData({...noteData, endTime:e.target.value})} value={noteData?.endTime} {...register("endTime", {validate: (value) => value && value > noteData?.startTime || "Начальное время не должно превышать конечное"})} type="time" aria-label="endTimeLabel"/></div>
+                        <div><input onInput={(e)=>setEndTime(e.target.value)} value={endTime} {...register("endTime", {validate: (value) => value && value > startTime || "Начальное время не должно превышать конечное"})} type="time" aria-label="endTimeLabel"/></div>
                         <div>{errors?.endTime && <p>{errors?.endTime?.message}</p> || errors?.startTime && <p>{errors?.startTime?.message}</p>}</div>
                         
                         <div>
