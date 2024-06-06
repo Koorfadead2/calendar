@@ -12,11 +12,16 @@
 }
 
 .todoItem li{
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     font-weight: 600;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.7em;
+    padding: 0.2em;
+    cursor:grab;
+    border: 1px solid rgba(0,0,0,0.7);
 }
 
 .todoItem input[type="text"]{
+    margin-right: 0.2em;
     border-radius: 6px;
     line-height: 1.5;
     padding: 5px 10px;
@@ -32,4 +37,31 @@
 .todoItem input[type="text"]:focus{
     border-color: #9147ff;
     background: #fff;
+}
+
+.filterButtonGroup > button{
+    margin-right: 0.2em;
+}
+
+.deleteButton{
+    padding: 0.3em 0.4em!important;
+    background-color: rgba(255,255,255,1)!important;
+    outline: 2px solid rgba(252, 46, 46, 0.856)!important;
+    transition: 0.4s;
+}
+
+.deleteButton:hover{
+    background-color: rgba(252, 46, 46, 0.856)!important;
+}
+
+.error{
+    border: 1px solid red!important;
+}
+
+.errorMessage{
+    color:red;
+}
+
+.completedTask{
+    opacity: 0.5;
 }
