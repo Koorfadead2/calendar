@@ -8,13 +8,15 @@ const todoSlice = createSlice({
             id:nanoid(),
             title:"Title",
             tasks:[{id:nanoid(), name:"task1", isCompleted: false},{id:nanoid(), name:"task2", isCompleted: true}],
-            noteId:"552024"
+            noteId:"552024",
+            filter:"all",
         },
         {
             id:nanoid(),
             title:"Title2",
             tasks:[{id:nanoid(), name:"task2", isCompleted: false}],
-            noteId:"552024"
+            noteId:"552024",
+            filter:"all",
         },
     ],
     todoCounter:0
@@ -25,7 +27,7 @@ const todoSlice = createSlice({
                 console.log("Нельзя добавить больше 10")
             }
             else{
-                state.todos.push({id:nanoid(),title:"Новый TODO",tasks:[],noteId:action.payload.noteId});
+                state.todos.push({id:nanoid(),title:"Новый TODO",tasks:[],noteId:action.payload.noteId, filter:"all"});
                 state.todoCounter++;
             }
         },
@@ -35,7 +37,7 @@ const todoSlice = createSlice({
                 return;
             }
             state.todos = state.todos.map(todo => {
-                if(todo.id === action.payload.todoId.todoId){
+                if(todo.id === action.payload.todoId){
                     todo.tasks.push(action.payload.task); 
                 }
                 return todo;
@@ -53,7 +55,6 @@ const todoSlice = createSlice({
             });
         },
         onCompletedAction(state,action){
-            console.log(action.payload);
             state.todos = state.todos.map(todo=>{
                 todo.tasks = todo.tasks.map(task => {
                     if(task.id === action.payload.taskId) 
@@ -63,11 +64,39 @@ const todoSlice = createSlice({
                 return todo;
             });
         },
+        setFilterAciton(state,action){
+            state.todos = state.todos.map(todo => {
+                if(todo.id === action.payload.todoId) 
+                    todo.filter = action.payload.filterValue; 
+                return todo;
+            });
+        },
+        onTaskNameChangeAction(state,action){
+            state.todos = state.todos.map(todo => {
+                todo.tasks.map(task =>{
+                    if(task.id === action.payload.taskId) 
+                        task.name = action.payload.name;
+                    return task;
+                }); 
+                return todo;
+            });
+        },
+        onTodoNameChangeAction(state,action){
+            console.log(action.payload);
+            state.todos = state.todos.map(todo =>{
+                if(todo.id === action.payload.todoId)
+                todo.title = action.payload.title;
+            return todo;
+            })
+            
+        },
     }
 })
 
 export const selectAllTodos = (state) => state.todos.todos;
 
-export const {addTodoAction, addTaskAction, removeTodoAction, removeTaskAction, onCompletedAction} = todoSlice.actions;
+export const {addTodoAction, addTaskAction, removeTodoAction,
+              removeTaskAction, onCompletedAction, setFilterAciton,
+              onTaskNameChangeAction, onTodoNameChangeAction} = todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -1,86 +1,71 @@
 import { useState } from 'react';
 import s from './TodoListItem.module.css'
 import { nanoid } from '@reduxjs/toolkit';
+import TodoTask from './TodoTask/TodoTask';
+import TodoFilterButtons from './TodoFilterButtons/TodoFilterButtons';
+import TodoTitle from './TodoTitle/TodoTitle';
+import TodoInputTaskName from './TodoInputTaskName/TodoInputTaskName';
 
-const TodoListItem = ({ todos, id, onTaskDelete, onTodoDelete, addTask, onCompleted }) => {
-    const [filter, setFilter] = useState("all");
-    const [nameForTask, setNameForTask] = useState({});
-    const [toggleEditTodoTitle, setToggleEditTodoTitle] = useState(false);
+const TodoListItem = ({ todo, id, onTaskDelete, onTodoDelete, addTask, onCompleted, setFilterTasks, filteredTasks, onTaskNameChange, onTodoNameChange }) => {
+    const [nameForTask, setNameForTask] = useState();
+    const [isDeletedTodo, setIsDeletedTodo] = useState(false);
     const [error, setError] = useState("");
-    let filteredTasks = todos.map(todo => todo.tasks);
-    if (filter === "isCompleted") {
-        filteredTasks = todos.map(todo => todo.tasks.filter(task => { task.isCompleted === true; return task }));
+    const titleWhenNoTodo = "Здесь Ваши Todo";
+    const titleWhenNoFilteredTodo = "Таких заданий ещё нет";
+    console.log(todo);
+    const onChangeHandler = (e) => {
+        setNameForTask(e.target.value)
     }
-    if (filter === "inProgress") {
-        filteredTasks = todos.map(todo => todo.tasks.filter(task => { task.isCompleted === false; return task }));
-    }
-    console.log(todos);
-    const onChangeHandler = (e, todoId) => {
-        const { value } = e.target;
-        setNameForTask(prevState => ({
-            ...prevState,
-            [todoId]: value
-        }));
-    }
-    const onKeyUpHandler = (e, todoId) => {
+    const onKeyUpHandler = (e) => {
         setError("");
         if (e.key === "Enter") {
-            if (nameForTask[todoId]) {
-                addTask({ id: nanoid(), name: nameForTask[todoId].trim(), isCompleted: false }, { todoId });
-                setNameForTask(prevState => ({ ...prevState, [todoId]: "" }));
+            if (nameForTask) {
+                addTask({ id: nanoid(), name: nameForTask.trim(), isCompleted: false }, todo.id );
+                setNameForTask("");
             }
             else {
                 setError("OnKeyUpError");
             }
         }
     }
-    const onAddTaskHandler = (todoId) => {
-        if (nameForTask[todoId]) {
-            addTask({ id: nanoid(), name: nameForTask[todoId].trim(), isCompleted: false }, { todoId });
-            setNameForTask(prevState => ({ ...prevState, [todoId]: "" }));
+    const onAddTaskHandler = () => {
+        if (nameForTask) {
+            addTask({ id: nanoid(), name: nameForTask.trim(), isCompleted: false }, todo.id );
+            setNameForTask("");
         }
         else {
             setError("OnAddTaskError");
         }
     }
+    const onNameChange = (title) => { onTodoNameChange(todo.id, title) }
 
-    const onDoubleClickHandler = () => { setToggleEditTodoTitle(!toggleEditTodoTitle) }
+    const onTodoDeleteHandler = () => {setIsDeletedTodo(true); setTimeout(()=> onTodoDelete(todo.id), 300) }
 
-    const onAllClickHandler = () => { setFilter("all") }
-    const onInProgressClickHandler = () => { setFilter("inProgress") }
-    const onIsCompletedClickHandler = () => { setFilter("isCompleted") }
+    const onAllClickHandler = () => { setFilterTasks("all", todo.id) }
+    const onInProgressClickHandler = () => { setFilterTasks("inProgress", todo.id) }
+    const onIsCompletedClickHandler = () => { setFilterTasks("isCompleted", todo.id) }
     return (
         <>
-            {todos.map((todo) => todo.noteId === id &&
-                <div className={s.todoItem} key={todo.id}>
-                    {!toggleEditTodoTitle ? <><h3 onDoubleClick={onDoubleClickHandler}>{todo.title} <button type="button" onClick={() => onTodoDelete(todo.id)} className={s.deleteButton}>❌</button></h3>
-                    <div>
-                        <input type='text' placeholder='Напиши что-нибудь'
-                            value={nameForTask[todo.id] || ""}
-                            onChange={(e) => onChangeHandler(e, todo.id)}
-                            onKeyUp={(e) => onKeyUpHandler(e, todo.id)}
-                            className={error ? s.error : ""} />
-
-                        <button type='button' onClick={() => onAddTaskHandler(todo.id)}>➕</button>
-                        {error && <div className={s.errorMessage}>{error}</div>}
-                    </div></>: <><input type='text' value={todo.title} /><button type='button'>✔</button><button type='button'>❌</button></>}
+            {todo.noteId === id &&
+                <div className={`${s.todoItem} ${isDeletedTodo ? s.todoItemDelete : ""}`}>
+                    <TodoTitle todoTitle={todo.title} onNameChange={onNameChange} onTodoDeleteHandler={onTodoDeleteHandler}/>
+                    <TodoInputTaskName nameForTask={nameForTask} error={error} onChangeHandler={onChangeHandler} onKeyUpHandler={onKeyUpHandler} onAddTaskHandler={onAddTaskHandler}/>
                     <ul>
-                        {todo.tasks.length <= 0 ? <li>Здесь Ваши Todo</li> : todo.tasks.map((task) => {
+                        {todo.tasks.length <= 0 ? <li>{titleWhenNoTodo}</li> : filteredTasks.length <= 0 ? <li>{titleWhenNoFilteredTodo}</li> : 
+                            filteredTasks.map((task) => {
                             const onTaskDeleteHandler = () => onTaskDelete(task.id);
                             const onCompletedHandler = () => onCompleted(task.id);
-                            return <li draggable={true} key={task.id} className={task.isCompleted ? s.completedTask : ""}>
-                                <input type='checkbox' checked={task.isCompleted} onChange={onCompletedHandler} />
-                                <span>{task.name}</span>
-                                <button type='button' onClick={onTaskDeleteHandler} className={s.deleteButton}>🚽</button>
-                            </li>
+                            const onNameChange = (name) => { onTaskNameChange(task.id, name) }
+                            return <TodoTask key={task.id} taskName={task.name} taskIsCompleted={task.isCompleted} 
+                            onTaskDeleteHandler={onTaskDeleteHandler} onCompletedHandler={onCompletedHandler} 
+                            onNameChange={onNameChange}/>
                         })}
                     </ul>
-                    <div className={s.filterButtonGroup}>
-                        <button type='button' onClick={onAllClickHandler}>All</button>
-                        <button type='button' onClick={onInProgressClickHandler}>In progress</button>
-                        <button type='button' onClick={onIsCompletedClickHandler}>Completed</button>
-                    </div>
-                </div>)}
+                        <TodoFilterButtons todoFilter={todo.filter} 
+                        onAllClickHandler={onAllClickHandler}
+                        onInProgressClickHandler={onInProgressClickHandler}
+                        onIsCompletedClickHandler={onIsCompletedClickHandler}/>
+                </div>}
         </>
     )
 }

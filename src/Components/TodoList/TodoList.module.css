@@ -1,11 +1,10 @@
 .todoWrapper{
     display: flex;
     flex-wrap: wrap;
-    padding: 1.5em;
     background-color: white;
     border-radius: 15px;
 }
 
-.todoWrapper div:first-child{
-    position: absolute;
+.todoAddButton{
+    margin-bottom: 1em;
 }

@@ -1,7 +1,38 @@
+@keyframes enterAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    50%{
+      opacity: 0.5;
+      transform: translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+@keyframes deleteAnimation {
+    0% {
+        opacity: 1;
+      }
+    50%{
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .todoItem{
     margin-right: 2em;
     margin-bottom: 1em;
-    margin-top: 2em;
+    margin-left: 1em;
+    animation: enterAnimation 0.4s ease-in;
+}
+
+.todoItemDelete{
+    animation: deleteAnimation 0.4s ease-out;
 }
 
 .todoItem ul{
@@ -16,7 +47,6 @@
     font-weight: 600;
     margin-bottom: 0.7em;
     padding: 0.2em;
-    cursor:grab;
     border: 1px solid rgba(0,0,0,0.7);
 }
 
@@ -63,5 +93,11 @@
 }
 
 .completedTask{
+    transition: text-decoration 0.4s ease-in;
     opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.activeFilter{
+    background-color: #6871f5c0!important;
 }
