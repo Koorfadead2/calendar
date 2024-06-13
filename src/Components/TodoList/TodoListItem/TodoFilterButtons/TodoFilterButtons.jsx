@@ -1,6 +1,7 @@
+import React from 'react'
 import s from './../TodoListItem.module.css'
 
-const TodoFilterButtons = ({todoFilter, onAllClickHandler, onInProgressClickHandler, onIsCompletedClickHandler}) => {
+export const TodoFilterButtons = React.memo(function({todoFilter, onAllClickHandler, onInProgressClickHandler, onIsCompletedClickHandler}){
     return (
         <div className={s.filterButtonGroup}>
             <button type='button' className={todoFilter === "all" ? s.activeFilter : ""} onClick={onAllClickHandler}>Все</button>
@@ -8,6 +9,4 @@ const TodoFilterButtons = ({todoFilter, onAllClickHandler, onInProgressClickHand
             <button type='button' className={todoFilter === "isCompleted" ? s.activeFilter : ""} onClick={onIsCompletedClickHandler}>Выполненные</button>
         </div>
     )
-}
-
-export default TodoFilterButtons
+})

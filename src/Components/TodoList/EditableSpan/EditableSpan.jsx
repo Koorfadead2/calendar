@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-const EditableSpan = ({ name, onNameChange }) => {
+export const EditableSpan = React.memo(function({ name, onNameChange }){
     const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState("");
     const activateEditMode = () =>{
@@ -11,7 +11,9 @@ const EditableSpan = ({ name, onNameChange }) => {
         setEditMode(false);
         onNameChange(title)
     };
-    const onChangeTitleHandler = (e) => setTitle(e.target.value); 
+    const onChangeTitleHandler = (e) => {
+        setTitle(e.target.value);
+    }
     const onKeyUpHandler = (e) => {
         setTitle(e.target.value); 
         if(e.key === "Enter"){
@@ -19,12 +21,11 @@ const EditableSpan = ({ name, onNameChange }) => {
             onNameChange(title);
         }
     }
+    console.log("edittable span");
     return (
         editMode 
          ? <input value={title} onBlur={activateViewMode} autoFocus onChange={onChangeTitleHandler} onKeyUp={onKeyUpHandler}/>
          : <span onDoubleClick={activateEditMode}>{name}</span>
          
     )
-}
-
-export default EditableSpan
+})

@@ -47,6 +47,7 @@
     font-weight: 600;
     margin-bottom: 0.7em;
     padding: 0.2em;
+    align-items: center;
     border: 1px solid rgba(0,0,0,0.7);
 }
 
@@ -54,6 +55,7 @@
     margin-right: 0.2em;
     border-radius: 6px;
     line-height: 1.5;
+    width: 16em;
     padding: 5px 10px;
     transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
     border: 2px solid #dee1e2;
@@ -69,14 +71,39 @@
     background: #fff;
 }
 
+.todoItem h3{
+    display: flex;
+    justify-content: space-between;
+}
+
 .filterButtonGroup > button{
     margin-right: 0.2em;
+}
+
+.taskItem{
+    display: flex;
+    justify-content: space-between;
+    max-width: 16em;
+}
+
+.taskItem input[type="checkbox"]{
+    --checkbox-height: 25px;
+    height: var(--checkbox-height);
+    width: var(--checkbox-height);
+    position: relative;
+    cursor: pointer;
+}
+
+.taskItem span{
+    position: relative;
 }
 
 .deleteButton{
     padding: 0.3em 0.4em!important;
     background-color: rgba(255,255,255,1)!important;
     outline: 2px solid rgba(252, 46, 46, 0.856)!important;
+    position: relative!important;
+    justify-self: end;
     transition: 0.4s;
 }
 

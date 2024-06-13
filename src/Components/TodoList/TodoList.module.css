@@ -2,9 +2,29 @@
     display: flex;
     flex-wrap: wrap;
     background-color: white;
+    justify-content: center;
     border-radius: 15px;
 }
 
 .todoAddButton{
     margin-bottom: 1em;
+}
+
+.todoCountError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(250, 63, 63);
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+.todoCountError span{
+    font-size: 1.5em;
+    outline: 1px solid white;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    margin-left: 1em;
+    cursor: pointer;
 }

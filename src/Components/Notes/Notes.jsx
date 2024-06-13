@@ -3,7 +3,7 @@ import NoteInfo from "./NoteInfo";
 import s from "./Notes.module.css";
 import { NavLink } from "react-router-dom";
 import { removeNoteAction } from "../../Redux/Slicers/notesSlice";
-import TodoList from "../TodoList/TodoList";
+import { TodoList } from "../TodoList/TodoList";
 
 function getLastItem(path){
     return path.substring(path.lastIndexOf('/') + 1);
