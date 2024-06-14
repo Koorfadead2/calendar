@@ -2,7 +2,7 @@ import s from "./CardDayItem.module.css"
 import React from "react";
 import CardTag from "../CardTag/CardTag";
 import { useSelector } from "react-redux";
-const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
+export const CardDayItem = React.memo(function({ day, currentMonth, currentYear, toggleModal, id }){
 
     const filteredNotesData = useSelector(state => state.notes.filteredNotesData);
 
@@ -39,6 +39,4 @@ const CardDayItem = ({ day, currentMonth, currentYear, toggleModal, id }) => {
             </div>
         </>
     )
-}
-
-export default CardDayItem;
+})

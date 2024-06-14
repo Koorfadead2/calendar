@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import CardDay from './Components/CardDay/CardDay'
+import {CardDay} from './Components/CardDay/CardDay'
+import {Notes} from './Components/Notes/Notes'
 import React, { Suspense, useState } from 'react'
 import Header from './Components/Header/Header';
-
-const Notes = React.lazy(() => import("./Components/Notes/Notes"));
 
 function App() {
   return (

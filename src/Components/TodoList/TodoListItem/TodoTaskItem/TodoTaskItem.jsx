@@ -3,9 +3,6 @@ import {EditableSpan} from '../../EditableSpan/EditableSpan'
 import React, { useCallback, useState } from "react"
 
 export const TodoTaskItem = React.memo(function({ taskName, todoId, taskId, taskIsCompleted, onTaskDelete, onCompleted, onTaskNameChange, onDrop }) {
-    const [currentTodo, setCurrentTodo] = useState(null);
-    const [currentTask, setCurrentTask] = useState(null);
-
     const onDragOverHandler = (e) => {
         e.preventDefault();
         if (e.target.classList.contains("li"))
@@ -15,21 +12,21 @@ export const TodoTaskItem = React.memo(function({ taskName, todoId, taskId, task
         e.target.style.boxShadow = "none"
     }
     const onDragStartHandler = (e) => {
-        setCurrentTodo(todoId);
-        setCurrentTask(taskId);
+        e.dataTransfer.setData('todoId', todoId);
+        e.dataTransfer.setData('taskId', taskId);
     }
     const onDragEndHandler = (e) => {
         e.target.style.boxShadow = "none"
     }
-    const onDropHandler = (e) => {
+    const onDropHandler = useCallback((e) => {
         e.preventDefault();
         e.target.style.boxShadow = "none"
-        if (currentTodo !== null && currentTask !== null) {
-            onDrop(currentTodo, currentTask);
+        const currentTodoId = e.dataTransfer.getData('todoId');
+        const currentTaskId = e.dataTransfer.getData('taskId');
+        if (currentTodoId !== null && currentTaskId !== null) {
+            onDrop(currentTodoId, currentTaskId);
         }
-        setCurrentTodo(null);
-        setCurrentTask(null);
-    }
+    },[onDrop])
     
     const onTaskDeleteHandler = useCallback(() => {onTaskDelete(todoId, taskId)},[onTaskDelete, todoId, taskId]);
     const onCompletedHandler = useCallback(() => {onCompleted(todoId, taskId)},[onCompleted, todoId, taskId]);

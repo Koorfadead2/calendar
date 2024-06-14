@@ -4,12 +4,13 @@ import s from "./Notes.module.css";
 import { NavLink } from "react-router-dom";
 import { removeNoteAction } from "../../Redux/Slicers/notesSlice";
 import { TodoList } from "../TodoList/TodoList";
+import React from "react";
 
 function getLastItem(path){
     return path.substring(path.lastIndexOf('/') + 1);
 }
 
-const Notes = () => {
+export const Notes = React.memo(function() {
     const dispatch = useDispatch();
     const id = getLastItem(window.location.href);
     return (
@@ -20,6 +21,4 @@ const Notes = () => {
             <TodoList id={id}/>
         </div>
     )
-}
-
-export default Notes;
+})

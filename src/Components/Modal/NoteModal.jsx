@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import s from "./NoteModal.module.css"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const NoteModal = ({ addNote, changeNote, toggleModal, notesData, id, dialog }) => {
+export const NoteModal = React.memo(function({ addNote, changeNote, toggleModal, notesData, id, dialog }){
     const { register, handleSubmit, reset, formState:{errors} } = useForm({
         mode: "onSubmit",
     });
@@ -68,5 +68,4 @@ const NoteModal = ({ addNote, changeNote, toggleModal, notesData, id, dialog }) 
             </dialog>
         </>
     );
-}
-export default NoteModal;
+})

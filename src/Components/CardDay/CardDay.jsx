@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import s from './CardDay.module.css'
-import CardDayItem from './CardDayItem/CardDayItem';
-import MonthNavigation from './MonthNavigation/MonthNavigation';
-import NoteModal from '../Modal/NoteModal';
+import {CardDayItem} from './CardDayItem/CardDayItem';
+import {MonthNavigation} from './MonthNavigation/MonthNavigation';
+import {NoteModal} from '../Modal/NoteModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNoteAction, changeNoteAction, selectAllNotes } from '../../Redux/Slicers/notesSlice';
 import { getDaysInMonth, setIdForModalAction } from '../../Redux/Slicers/currentDateSlice';
@@ -38,7 +38,7 @@ const getNextDays = (month, year) => {
 
 const dayOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
-const CardDay = () => {
+export const CardDay = React.memo(function() {
     const dispatch = useDispatch();
     const currentDate = useSelector(state=>state.currentDate);
     const notesData = useSelector(selectAllNotes);
@@ -60,9 +60,9 @@ const CardDay = () => {
 
     const daysInMonth = currentDate.daysInMonth;
 
-    const addNote = (note) => dispatch(addNoteAction({note}));
-    const changeNote = (note) => dispatch(changeNoteAction({note}));
-    const setIdForModal = (id) => dispatch(setIdForModalAction({id}));
+    const addNote = useCallback((note) => dispatch(addNoteAction({note})),[dispatch]);
+    const changeNote = useCallback((note) => dispatch(changeNoteAction({note})),[dispatch]);
+    const setIdForModal = useCallback((id) => dispatch(setIdForModalAction({id})),[dispatch]);
 
     const toggleModal = ((id) => {
         if(!isOpen.current){
@@ -92,6 +92,4 @@ const CardDay = () => {
             </div>
         </div>
     );
-}
-
-export default CardDay;
+})

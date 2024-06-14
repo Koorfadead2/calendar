@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import s from "./ColorTagSpan.module.css"
 import { useDispatch } from "react-redux";
 import { filterNotesByTagColorAction } from "../../../../Redux/Slicers/notesSlice";
 
-function ColorTagSpan({ color }) {
+export const ColorTagSpan = React.memo(function({ color }) {
     const [isActive, setActive] = useState(true);
     const dispatch = useDispatch();
-    const filterNotes = (importance) => dispatch(filterNotesByTagColorAction(importance));
+    const filterNotes = useCallback((importance) => dispatch(filterNotesByTagColorAction(importance)),[dispatch]);
     const toggleActive = () => {
         switch(color){
             case "Red":{filterNotes({importance:'0'}); break}
@@ -18,6 +18,4 @@ function ColorTagSpan({ color }) {
     return (
         <span onClick={toggleActive} className={isActive ? s[`isActive${color}`] : s.isInActive}></span>
     )
-}
-
-export default ColorTagSpan;
+})

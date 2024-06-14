@@ -102,7 +102,33 @@ const todoSlice = createSlice({
         onDropRemoveTaskFromTodo(state,action){
             console.log(action.payload);
             const { todoId, taskId } = action.payload;
-            console.log(todoId,taskId);
+            const sourceTodo = state.todos.find(todo => todo.id === todoId);
+            if (!sourceTodo) {
+                return state;
+            }
+            const taskToMove = sourceTodo.tasks.find(task => task.id === taskId);
+            if (!taskToMove) {
+                return state;
+            }
+            const destinationTodo = state.todos.find(todo => todo.id !== todoId);
+            if (!destinationTodo) {
+                return state;
+            }
+            const updatedSourceTasks = sourceTodo.tasks.filter(task => task.id !== taskId);
+            const updatedDestinationTasks = [...destinationTodo.tasks, taskToMove];
+            const updatedTodos = state.todos.map(todo => {
+                if (todo.id === todoId) {
+                    return { ...todo, tasks: updatedSourceTasks };
+                } else if (todo.id !== todoId) {
+                    return { ...todo, tasks: updatedDestinationTasks };
+                } else {
+                    return todo;
+                }
+            });
+            return {
+                ...state,
+                todos: updatedTodos
+            };
         },
         //Error
         onCloseErrorMessage(state,action){

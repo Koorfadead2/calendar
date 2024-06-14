@@ -21,7 +21,6 @@ export const EditableSpan = React.memo(function({ name, onNameChange }){
             onNameChange(title);
         }
     }
-    console.log("edittable span");
     return (
         editMode 
          ? <input value={title} onBlur={activateViewMode} autoFocus onChange={onChangeTitleHandler} onKeyUp={onKeyUpHandler}/>

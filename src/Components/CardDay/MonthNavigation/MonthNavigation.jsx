@@ -1,11 +1,12 @@
 import s from "./MonthNavigation.module.css"
-import ColorTagSpan from "./ColorTagSpan/ColorTagSpan"
+import {ColorTagSpan} from "./ColorTagSpan/ColorTagSpan"
 import { useDispatch } from "react-redux"
 import { onNextMonthAction, onPreviousMonthAction } from "../../../Redux/Slicers/currentDateSlice"
+import React from "react"
 
 const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
 
-const MonthNavigation = ({ currentMonth, currentYear }) => {
+export const MonthNavigation = React.memo(function({ currentMonth, currentYear }) {
     const dispatch = useDispatch();
     const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
     const onNextMonth = ()=>dispatch(onNextMonthAction());
@@ -33,6 +34,4 @@ const MonthNavigation = ({ currentMonth, currentYear }) => {
             </div>
         </div>
     )
-}
-
-export default MonthNavigation;
+})
