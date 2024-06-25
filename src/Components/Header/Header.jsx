@@ -1,6 +1,6 @@
 import s from "./Header.module.css"
 
-function Header(){
+export const Header = function({}){
     return(
         <div className={s.headerWrapper}>
             <img src="./../../assets/logo.jpg" alt="logo" loading="lazy" priority="low"/>
@@ -10,5 +10,3 @@ function Header(){
         </div>
     )
 }
-
-export default Header;

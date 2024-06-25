@@ -99,3 +99,8 @@ dialog div:first-child {
 .tagHelp:hover{
     cursor:help;
 }
+
+.error{
+    color:lightcoral;
+    font-weight: bold;
+}

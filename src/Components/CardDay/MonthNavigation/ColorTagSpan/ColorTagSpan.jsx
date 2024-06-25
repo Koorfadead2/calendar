@@ -1,21 +1,19 @@
 import React, { useCallback, useState } from "react";
 import s from "./ColorTagSpan.module.css"
-import { useDispatch } from "react-redux";
-import { filterNotesByTagColorAction } from "../../../../Redux/Slicers/notesSlice";
 
-export const ColorTagSpan = React.memo(function({ color }) {
+export const ColorTagSpan = React.memo(function ({ color, setFilterNotes }) {
     const [isActive, setActive] = useState(true);
-    const dispatch = useDispatch();
-    const filterNotes = useCallback((importance) => dispatch(filterNotesByTagColorAction(importance)),[dispatch]);
-    const toggleActive = () => {
-        switch(color){
-            case "Red":{filterNotes({importance:'0'}); break}
-            case "Green":{filterNotes({importance:'1'}); break}
-            case "Orange":{filterNotes({importance:'2'}); break}
+    const toggleActive = useCallback(() => {
+        switch (color) {
+            case "Red": { setFilterNotes({ importanceToRemove: '0' }); break }
+            case "Green": { setFilterNotes({ importanceToRemove: '1' }); break }
+            case "Orange": { setFilterNotes({ importanceToRemove: '2' }); break }
         }
         setActive(prevActive => !prevActive);
-    }
+    },[setFilterNotes])
     return (
-        <span onClick={toggleActive} className={isActive ? s[`isActive${color}`] : s.isInActive}></span>
+        <div className={s.filterByColorTag}>
+            <span onClick={toggleActive} className={isActive ? s[`isActive${color}`] : s.isInActive}></span>
+        </div>
     )
 })

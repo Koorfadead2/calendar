@@ -1,27 +1,21 @@
-import { useSelector } from "react-redux";
 import s from "./Notes.module.css";
-import { selectAllNotes } from "../../Redux/Slicers/notesSlice";
+import React from "react";
 
 const importanceName = {"0":"Важный","1":"Обычный","2":"Низкий"}
 
-const NoteInfo = ({ id }) => {
-    const notesData = useSelector(selectAllNotes);
+export const NoteInfo = React.memo(function({ noteId, noteTitle, noteDescription, noteStartTime, noteEndTime, noteImportance }) {
     return (
         <>
             <div className={s.noteInfo}>
-                {notesData.map(note => note && note.id === id &&
-                    <div key={note.id}>
-                        <b>{note.title}</b>
-                        <div>{note.description}</div>
-                        <div>{note.startTime + "-" + note.endTime}</div>
-                        <div>Приоритет задачи: {importanceName[note.importance]}</div>
-                    </div>
-                )}
+                <div key={noteId}>
+                    <b>{noteTitle}</b>
+                    <div>{noteDescription}</div>
+                    <div>{noteStartTime + "-" + noteEndTime}</div>
+                    <div>Приоритет задачи: {importanceName[noteImportance]}</div>
+                </div>
             </div>
 
         </>
 
     )
-}
-
-export default NoteInfo;
+})

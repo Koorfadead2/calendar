@@ -1,11 +1,11 @@
 import s from "./CardDayItem.module.css"
 import React from "react";
-import CardTag from "../CardTag/CardTag";
-import { useSelector } from "react-redux";
-export const CardDayItem = React.memo(function({ day, currentMonth, currentYear, toggleModal, id }){
+import { CardTag } from "../CardTag/CardTag";
+export const CardDayItem = React.memo(function(
+    { day, notesData, currentMonth, currentYear, checkMonth, toggleModal, id, importanceNote }){
 
-    const filteredNotesData = useSelector(state => state.notes.filteredNotesData);
-
+    let filteredNotesData = notesData;
+    filteredNotesData = filteredNotesData.filter((note)=>importanceNote.find((importance)=>importance === note.importance));
     const isToday = () => {
         const today = new Date();
         return day === today.getDate()
@@ -18,12 +18,16 @@ export const CardDayItem = React.memo(function({ day, currentMonth, currentYear,
         return weekend === 0 || weekend === 6;
     }
 
+    const isCurrentDateMonth = () =>{
+        const month = new Date(currentYear, checkMonth, day).getMonth();
+        return currentMonth !== month;
+    }
     return (
         <>
-            <div onClick={() => toggleModal(id)} className={`${s.card} ${isToday() ? `${s.cardActive}` : ""}`}>
+            <div onClick={() => toggleModal(id)} className={`${s.card} ${isCurrentDateMonth() ? s.daysOfNotCurrentMonth : ""} ${isToday() ? `${s.cardActive}` : ""}`}>
                 <div className={s.cardItem}>
-                    <div className={isWeekend() ? s.weekend : ""}>
-                        {day}
+                    <div className={`${currentMonth } ${isWeekend() ? s.weekend : ""}`}>
+                        { day }
                     </div>
                     {filteredNotesData.map(note => note.id === id ?
                         <React.Fragment key={note.id}>

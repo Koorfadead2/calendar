@@ -5,28 +5,33 @@ import React, { useCallback, useState } from "react"
 export const TodoTaskItem = React.memo(function({ taskName, todoId, taskId, taskIsCompleted, onTaskDelete, onCompleted, onTaskNameChange, onDrop }) {
     const onDragOverHandler = (e) => {
         e.preventDefault();
-        if (e.target.classList.contains("li"))
-            e.target.style.boxShadow = "0 4px 2px gray"
+        if (e.target.classList.contains("li")){
+            e.target.style.boxShadow = "0 4px 2px gray";
+        }
     }
     const onDragLeaveHandler = (e) => {
-        e.target.style.boxShadow = "none"
+        e.target.style.boxShadow = "none";
     }
     const onDragStartHandler = (e) => {
         e.dataTransfer.setData('todoId', todoId);
         e.dataTransfer.setData('taskId', taskId);
     }
     const onDragEndHandler = (e) => {
-        e.target.style.boxShadow = "none"
+        e.target.style.boxShadow = "none";
     }
     const onDropHandler = useCallback((e) => {
         e.preventDefault();
-        e.target.style.boxShadow = "none"
+        e.target.style.boxShadow = "none";
+        const destinationTodoId = todoId;
         const currentTodoId = e.dataTransfer.getData('todoId');
         const currentTaskId = e.dataTransfer.getData('taskId');
-        if (currentTodoId !== null && currentTaskId !== null) {
-            onDrop(currentTodoId, currentTaskId);
+        if (taskId.length === 0 && currentTodoId && currentTaskId) {
+            onDrop(currentTodoId, destinationTodoId, currentTaskId);
         }
-    },[onDrop])
+        if (currentTodoId !== destinationTodoId && currentTaskId && currentTodoId) {
+            onDrop(currentTodoId, destinationTodoId, currentTaskId);
+        }
+    },[onDrop, todoId, taskId])
     
     const onTaskDeleteHandler = useCallback(() => {onTaskDelete(todoId, taskId)},[onTaskDelete, todoId, taskId]);
     const onCompletedHandler = useCallback(() => {onCompleted(todoId, taskId)},[onCompleted, todoId, taskId]);

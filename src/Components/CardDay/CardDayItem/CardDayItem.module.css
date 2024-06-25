@@ -30,3 +30,7 @@
 .weekend{
     color:red;
 }
+
+.daysOfNotCurrentMonth{
+    background-color: lightgrey;
+}

@@ -10,6 +10,7 @@ const todoSlice = createSlice({
             tasks:[{id:nanoid(), name:"task1", isCompleted: false},{id:nanoid(), name:"task2", isCompleted: true}],
             noteId:"552024",
             filter:"all",
+            errorOnTodoCount:false,
         },
         {
             id:nanoid(),
@@ -17,19 +18,21 @@ const todoSlice = createSlice({
             tasks:[{id:nanoid(), name:"task2", isCompleted: false}],
             noteId:"552024",
             filter:"all",
+            errorOnTodoCount:false,
         },
     ],
-    errorOnTodoCount:false,
     },
     reducers:{
         //CRUD for todo and task
         addTodoAction(state, action){
-            if(state.todos.length >= 12){
-                state.errorOnTodoCount = true;
+            const todo = state.todos.filter((todo)=>todo.noteId === action.payload.noteId);
+            if(todo.length >= 4){
+                todo.map((todo)=>todo.errorOnTodoCount = true);
             }
             else{
-                state.todos.push({id:nanoid(),title:"Новый TODO",tasks:[],noteId:action.payload.noteId, filter:"all"});
+                state.todos.push({id:nanoid(),title:"Новый TODO",tasks:[],noteId:action.payload.noteId, filter:"all", errorOnTodoCount:false});
             }
+            console.log(current(state));
         },
         addTaskAction(state,action){
             const taskName = action.payload.task.name.trim();
@@ -44,8 +47,9 @@ const todoSlice = createSlice({
             });
         },
         removeTodoAction(state,action){
-            state.errorOnTodoCount = false;
-            state.todos = state.todos.filter(todo=> todo.id !== action.payload.todoId);
+            const todo = state.todos.filter(todo => todo.noteId === action.payload.noteId);
+            todo.map((todo)=>todo.errorOnTodoCount = false);
+            state.todos = state.todos.filter(todo => todo.id !== action.payload.todoId);
         },
         removeTaskAction(state,action){
             const {todoId, taskId} = action.payload;
@@ -99,34 +103,35 @@ const todoSlice = createSlice({
                 return todo;
             });
         },
-        onDropRemoveTaskFromTodo(state,action){
-            console.log(action.payload);
-            const { todoId, taskId } = action.payload;
-            const sourceTodo = state.todos.find(todo => todo.id === todoId);
-            if (!sourceTodo) {
+        onDropRemoveTaskFromTodo(state, action) {
+            const { sourceTodoId, destinationTodoId, taskId } = action.payload;
+            const sourceTodo = state.todos.find(todo => todo.id === sourceTodoId);
+            const destinationTodo = state.todos.find(todo => todo.id === destinationTodoId);
+        
+            if (!sourceTodo || !destinationTodo) {
                 return state;
             }
+        
             const taskToMove = sourceTodo.tasks.find(task => task.id === taskId);
+        
             if (!taskToMove) {
                 return state;
             }
-            const destinationTodo = state.todos.find(todo => todo.id !== todoId);
-            if (!destinationTodo) {
-                return state;
-            }
+        
             const updatedSourceTasks = sourceTodo.tasks.filter(task => task.id !== taskId);
-            const updatedDestinationTasks = [...destinationTodo.tasks, taskToMove];
+            const updatedDestinationTasks = [taskToMove, ...destinationTodo.tasks];
+        
             const updatedTodos = state.todos.map(todo => {
-                if (todo.id === todoId) {
+                if (todo.id === sourceTodoId) {
                     return { ...todo, tasks: updatedSourceTasks };
-                } else if (todo.id !== todoId) {
-                    return { ...todo, tasks: updatedDestinationTasks };
-                } else {
-                    return todo;
                 }
+                if (todo.id === destinationTodoId) {
+                    return { ...todo, tasks: updatedDestinationTasks };
+                }
+                return todo;
             });
+        
             return {
-                ...state,
                 todos: updatedTodos
             };
         },
@@ -138,7 +143,6 @@ const todoSlice = createSlice({
 })
 
 export const selectAllTodos = (state) => state.todos.todos;
-export const selectErrorMessage = (state) => state.todos.errorOnTodoCount;
 
 export const {addTodoAction, addTaskAction, removeTodoAction,
               removeTaskAction, onCompletedAction, setFilterAciton,

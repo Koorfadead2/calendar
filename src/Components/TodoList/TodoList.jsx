@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import s from './TodoList.module.css'
 import { TodoListItem } from './TodoListItem/TodoListItem'
-import { addTaskAction, addTodoAction, onCompletedAction, removeTaskAction, removeTodoAction, selectAllTodos, setFilterAciton, onTaskNameChangeAction, onTodoNameChangeAction, onCloseErrorMessage, selectErrorMessage, onDropRemoveTaskFromTodo } from '../../Redux/Slicers/todoSlice'
+import { addTaskAction, addTodoAction, onCompletedAction, removeTaskAction, 
+  removeTodoAction, selectAllTodos, setFilterAciton, onTaskNameChangeAction, 
+  onTodoNameChangeAction, onCloseErrorMessage, onDropRemoveTaskFromTodo } from '../../Redux/Slicers/todoSlice'
 import React, { useCallback } from 'react'
 
 export const TodoList = React.memo(function({ id }){
@@ -14,18 +16,17 @@ export const TodoList = React.memo(function({ id }){
   const onTaskNameChange = useCallback((taskId, name) => { dispatch(onTaskNameChangeAction({ taskId, name })) },[dispatch]);
   const onTodoNameChange = useCallback((todoId, title) => { dispatch(onTodoNameChangeAction({ todoId, title })) },[dispatch]);
   const setFilterTasks = useCallback( (filterValue, todoId) =>{ dispatch(setFilterAciton({ filterValue, todoId })) },[dispatch]);  
-  const onDrop = useCallback((todoId,taskId) => {dispatch(onDropRemoveTaskFromTodo({todoId,taskId}))},[dispatch]);
+  const onDrop = useCallback((sourceTodoId,destinationTodoId,taskId) => {dispatch(onDropRemoveTaskFromTodo({sourceTodoId,destinationTodoId,taskId}))},[dispatch]);
   const onCloseHandler = useCallback(() => {dispatch(onCloseErrorMessage())},[dispatch]);
   const todos = useSelector(selectAllTodos);
-  const errorOnTodoCount = useSelector(selectErrorMessage);
   const error = "Количество ToDo не может превышать 12";
   console.log(todos);
   return (
     <>
       <div className={s.todoAddButton}><button type='button' onClick={() => addTodo(id)}>Добавить Todo</button></div>
-      {errorOnTodoCount &&<div className={s.todoCountError}><p>{error}</p><span onClick={onCloseHandler}>✖</span></div>}
       <div className={s.todoWrapper}>
         {todos.map((todo) => {
+            <>{todo.errorOnTodoCount &&<div className={s.todoCountError}><p>{error}</p><span onClick={onCloseHandler}>✖</span></div>}</>
             return <TodoListItem key={todo.id}
             todo={todo} id={id} tasksForTodo={todo.tasks}
             onTaskDelete={onTaskDelete} onTodoDelete={onTodoDelete}

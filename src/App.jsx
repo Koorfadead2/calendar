@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import {CardDay} from './Components/CardDay/CardDay'
-import {Notes} from './Components/Notes/Notes'
-import React, { Suspense, useState } from 'react'
-import Header from './Components/Header/Header';
+import { CardDay } from './Components/CardDay/CardDay'
+import { Notes } from './Components/Notes/Notes'
+import React, { Suspense } from 'react'
+import { Header } from './Components/Header/Header';
 
 function App() {
   return (

@@ -1,21 +1,19 @@
 import s from "./MonthNavigation.module.css"
-import {ColorTagSpan} from "./ColorTagSpan/ColorTagSpan"
-import { useDispatch } from "react-redux"
-import { onNextMonthAction, onPreviousMonthAction } from "../../../Redux/Slicers/currentDateSlice"
+import { ColorTagSpan } from "./ColorTagSpan/ColorTagSpan"
 import React from "react"
 
 const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
 
-export const MonthNavigation = React.memo(function({ currentMonth, currentYear }) {
-    const dispatch = useDispatch();
-    const onPreviousMonth = ()=>dispatch(onPreviousMonthAction());
-    const onNextMonth = ()=>dispatch(onNextMonthAction());
+const importanceNoteColor = ["Red","Green","Orange"];
+
+export const MonthNavigation = React.memo(function (
+    { currentMonth, currentYear, onPreviousMonth, onNextMonth, setFilterNotes }) {
     return (
         <div className={s.navigatorWrapper}>
-            <div className={s.filterByColorTag}>
-                <ColorTagSpan color="Red"/>
-                <ColorTagSpan color="Green"/>
-                <ColorTagSpan color="Orange"/>
+            <div className={s.filterWrapper}>
+                {importanceNoteColor.map((importanceColor) =>
+                    <ColorTagSpan key={importanceColor} setFilterNotes={setFilterNotes} color={importanceColor} />
+                )}
             </div>
             <div className={s.monthNavigation}>
                 <div className={s.prevAndNextButtons}>

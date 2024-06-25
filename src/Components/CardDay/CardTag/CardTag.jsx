@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import s from "./../CardDay.module.css";
 import "./CardTag.css";
-function CardTag({importance, id}){
+export const CardTag = function({importance, id}){
     let tagImportance = "";
     switch(importance){
         case '0':{
@@ -28,5 +28,3 @@ function CardTag({importance, id}){
         </>
     )
 }
-
-export default CardTag;
