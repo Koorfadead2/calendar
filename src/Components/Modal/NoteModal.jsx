@@ -13,7 +13,6 @@ export const NoteModal = React.memo(function({ addNote, changeNote, toggleModal,
     const [startTime,setStartTime] = useState("09:00");
     const [endTime,setEndTime] = useState("10:00");
     useEffect(()=>{
-        console.log(id.current);
         setNoteData(notesData.find(note => note.id === id.current));
     },[toggleModal, id.current])
     const onSubmit = (data) => {

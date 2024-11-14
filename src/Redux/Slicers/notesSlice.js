@@ -27,7 +27,7 @@ const notesSlice = createSlice({
                 window.location.href="/";
             }
         },
-        //Utility
+        //Filter
         setNotesFilterAction(state,action){
             if(state.importanceNotes.find((importance) => importance === action.payload.importanceToRemove))
                 state.importanceNotes = state.importanceNotes.filter((importance)=> importance !== action.payload.importanceToRemove);

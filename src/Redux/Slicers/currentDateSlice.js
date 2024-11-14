@@ -51,7 +51,7 @@ const currentDateSlice = createSlice({
             state.daysInMonth = days;
         },
         onNextMonthAction (state,action) {
-            if (state.currentMonth >= 10) {
+            if (state.currentMonth >= 11) {
                 state.currentMonth = 0 ;
                 state.currentYear += 1;
             }

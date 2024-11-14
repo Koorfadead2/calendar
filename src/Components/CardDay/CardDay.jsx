@@ -35,7 +35,6 @@ export const CardDay = React.memo(function () {
     const toggleModal = ((id) => {
         if (!isOpen.current) {
             refId.current = id;
-            console.log(id);
             dialog.current.showModal();
         }
         else

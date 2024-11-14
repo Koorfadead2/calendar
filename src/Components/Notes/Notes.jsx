@@ -13,6 +13,7 @@ function getLastItem(path) {
 }
 
 export const Notes = React.memo(function () {
+    //Try hook useParams
     const dispatch = useDispatch();
     const notesData = useSelector(selectAllNotes);
     const id = getLastItem(window.location.href);
